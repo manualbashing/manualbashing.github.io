@@ -4,15 +4,17 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+![]({{site.baseurl}}/assets/images/profile.png)
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+Hi! My name is Manuel. 
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+I currently work as an Application Developer and DevOps Engineer at [abtis GmbH](https://abtis.de) in Pforzheim, Germany.
 
+This blog is (mostly) dedicated to technical topics topics that I deal with professionally, like:
 
-[jekyll-organization]: https://github.com/jekyll
+- PowerShell
+- Infrastructure as Code
+- Microsoft Azure
+- Kubernetes
+
+If you like what I am doing here, follow me on twitter and let me know!
