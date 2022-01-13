@@ -1,4 +1,4 @@
-baseURL = "http://localhost:1313/"
+baseURL = "https://manualbashing.github.io"
 languageCode = "en"
 defaultContentLanguage = "en"
 title = "ManualBashing - Notes and thoughts of Manuel Batsching"
@@ -108,8 +108,8 @@ paginate = 5
   # Display a message at the beginning of an article to warn the readers that it's content may be outdated.
   [params.outdatedInfoWarning]
     enable = false
-    hint = 30               # Display hint if the last modified time is more than these days ago.    # 如果文章最后更新于这天数之前，显示提醒
-    warn = 180              # Display warning if the last modified time is more than these days ago.    # 如果文章最后更新于这天数之前，显示警告
+    hint = 30               # Display hint if the last modified time is more than these days ago.
+    warn = 180              # Display warning if the last modified time is more than these days ago.
 
   [params.gitment]          # Gitment is a comment system based on GitHub issues. see https://github.com/imsun/gitment
     owner = ""              # Your GitHub ID
@@ -135,16 +135,10 @@ paginate = 5
     enable = false
     options = ""            # default: "{theme: 'simple'}"
 
-  [params.busuanzi]         # count web traffic by busuanzi                             # 是否使用不蒜子统计站点访问量
-    enable = false
-    siteUV = true
-    sitePV = true
-    pagePV = true
-
-  [params.social]                                         # 社交链接
-    b-stack-overflow = "http://localhost:1313"
-    c-twitter = "http://localhost:1313"
-    g-github = "http://localhost:1313"
+  [params.social]
+    b-stack-overflow = "https://stackoverflow.com/users/565359/manuel-batsching"
+    c-twitter = "https://twitter.com/manualbashing"
+    g-github = "https://github.com/manualbashing"
 
 # See https://gohugo.io/about/hugo-and-gdpr/
 [privacy]
