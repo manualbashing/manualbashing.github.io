@@ -2,7 +2,3 @@
 	path = themes/even
 	url = https://github.com/olOwOlo/hugo-theme-even
 	branch = master
-[submodule "content/post"]
-	path = content/post
-	url = https://github.com/manualbashing/posts.git
-	branch = mother
