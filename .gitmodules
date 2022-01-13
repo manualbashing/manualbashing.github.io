@@ -6,7 +6,3 @@
 	path = content/post
 	url = https://github.com/manualbashing/posts.git
 	branch = mother
-[submodule "static"]
-	path = static
-	url = https://github.com/manualbashing/posts.git
-	branch = mother
