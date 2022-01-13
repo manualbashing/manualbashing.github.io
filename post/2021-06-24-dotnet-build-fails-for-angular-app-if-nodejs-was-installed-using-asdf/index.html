@@ -39,7 +39,7 @@ dotnet new angular Id did not have Node.js installed so I installed it using asd
 asdf plugin add nodejs asdf install nodejs latest This successfully installed Node.js v16.4.0. But when I tried to build the example project using dotnet build I ran into the following error:
 ❯ dotnet build Microsoft (R) Build Engine version 16.7.2+b60ddb6f4 for ."><meta itemprop=datePublished content="2021-06-24T13:02:55+00:00">
 <meta itemprop=dateModified content="2021-06-24T13:02:55+00:00">
-<meta itemprop=wordCount content="280">
+<meta itemprop=wordCount content="283">
 <meta itemprop=keywords content="dotnet,"><meta name=twitter:card content="summary">
 <meta name=twitter:title content="dotnet build fails for angular app if nodejs was installed using asdf">
 <meta name=twitter:description content="I was creating a new angular project using a template via dotnet cli today:
@@ -99,59 +99,38 @@ asdf plugin add nodejs asdf install nodejs latest This successfully installed No
 <h1 class=post-title>dotnet build fails for angular app if nodejs was installed using asdf</h1>
 <div class=post-meta>
 <span class=post-time> 2021-06-24 </span>
-<span class=more-meta> 280 words </span>
+<span class=more-meta> 283 words </span>
 <span class=more-meta> 2 mins read </span>
 </div>
 </header>
 <div class=post-toc id=post-toc>
 <h2 class=post-toc-title>Contents</h2>
 <div class="post-toc-content always-active">
-<nav id=TableOfContents>
-<ul>
-<li>
-<ul>
-<li><a href=#btw->BTW 🧐</a></li>
-</ul>
-</li>
-</ul>
-</nav>
+<nav id=TableOfContents></nav>
 </div>
 </div>
 <div class=post-content>
 <p>I was creating a new angular project using a template via <a href=https://docs.microsoft.com/en-us/dotnet/core/tools/>dotnet cli</a> today:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>
-dotnet new angular
-
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>dotnet new angular
 </code></pre></div><p>Id did not have Node.js installed so I installed it using <a href=https://asdf-vm.com/>asdf</a>:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>
-asdf plugin add nodejs
-
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>asdf plugin add nodejs
 asdf install nodejs latest
-
 </code></pre></div><p>This successfully installed Node.js <code>v16.4.0</code>. But when I tried to build the example project using <code>dotnet build</code> I ran into the following error:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>
-❯ dotnet build
-
-  
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>❯ dotnet build
 
 Microsoft <span class=o>(</span>R<span class=o>)</span> Build Engine version 16.7.2+b60ddb6f4 <span class=k>for</span> .NET
-
-Copyright <span class=o>(</span>C<span class=o>)</span> Microsoft Corporation. All rights reserved.
-
-  
+Copyright <span class=o>(</span>C<span class=o>)</span> Microsoft Corporation. All rights reserved. 
 
  Determining projects to restore...
 
  All projects are up-to-date <span class=k>for</span> restore.
 
  foo -&gt; /home/mbatsching/git/foo/bin/Debug/netcoreapp3.1/foo.dll
-
  foo -&gt; /home/mbatsching/git/foo/bin/Debug/netcoreapp3.1/foo.Views.dll
 
  No version <span class=nb>set</span> <span class=k>for</span> <span class=nb>command</span> node
 
  Consider adding one of the following versions in your config file at
-
  nodejs 16.4.0
 
 /home/mbatsching/git/foo/foo.csproj<span class=o>(</span>28,5<span class=o>)</span>: warning MSB3073: The <span class=nb>command</span> <span class=s2>&#34;node --version&#34;</span> exited with code 126.
@@ -159,15 +138,13 @@ Copyright <span class=o>(</span>C<span class=o>)</span> Microsoft Corporation. A
 /home/mbatsching/git/foo/foo.csproj<span class=o>(</span>28,5<span class=o>)</span>: warning MSB4181: The <span class=s2>&#34;Exec&#34;</span> task returned <span class=nb>false</span> but did not log an error.
 
 /home/mbatsching/git/foo/foo.csproj<span class=o>(</span>31,5<span class=o>)</span>: error : Node.js is required to build and run this project. To <span class=k>continue</span>, please install Node.js from https://nodejs.org/, and <span class=k>then</span> restart your <span class=nb>command</span> prompt or IDE.
-
 </code></pre></div><p>No version set for command <code>node</code>?  That error is produced by the shim that asdf creates for the node executable. Apparently it needs to know explicitly which version of Node.js should be used in the current project.</p>
 <p>That can be done by creating a file named <code>.tool-versions</code> in the project root and adding the Node.js version that should be used. Im my case the content of this file looked like this:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text>
-nodejs 16.4.0
-
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text>nodejs 16.4.0
 </code></pre></div><p>After creating this file the <code>dotnet build</code> command executed without any issues.</p>
 <p>You can learn more about the <code>.tool-versions</code> configuration file here: <a href="https://asdf-vm.com/#/core-configuration?id=tool-versions">Configuration (asdf-vm.com)</a></p>
-<h2 id=btw->BTW 🧐</h2>
+<hr>
+<p><strong>And by the way&mldr; 🧐</strong></p>
 <p><a href="https://www.youtube.com/watch?v=kcNpBNpvyc4&t=258s&ab_channel=TomSkaTomSkaVerified">asdf</a> is also the name of a legendary series of animated short films by TomSka.</p>
 <p><img src=/static/asdf.gif alt></p>
 </div>
