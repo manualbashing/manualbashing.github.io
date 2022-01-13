@@ -15,11 +15,6 @@ jobs:
           submodules: true  # Fetch Hugo themes (true OR recursive)
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
 
-      - name: submoduleFilter
-        run: |
-          cd content/post
-          git filter-branch --subdirectory-filter posts -f
-
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
@@ -36,8 +31,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
       
-      - name: submoduleFilter
+      - name: Copy static files to root
         run: |
-          git checkout gh-pages
-          cd static
-          git filter-branch --subdirectory-filter static -f
+         bash ${GITHUB_WORKSPACE}/update.sh
