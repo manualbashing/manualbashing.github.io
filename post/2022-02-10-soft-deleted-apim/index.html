@@ -1,0 +1,243 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
+<title>How to restore or purge soft-deleted Azure API management services - ManualBashing - Notes and thoughts of Manuel Batsching</title>
+<meta name=renderer content="webkit">
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv=cache-control content="no-transform">
+<meta http-equiv=cache-control content="no-siteapp">
+<meta name=theme-color content="#f8f5ec">
+<meta name=msapplication-navbutton-color content="#f8f5ec">
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
+<meta name=author content="Manuel Batsching"><meta name=description content="Starting with REST API version, 2020-06-01-preview , Microsoft introduced the soft-delete feature to API Management service (APIM) (See: Azure API Management soft-delete (preview) | Microsoft Docs)
+Deleting an APIM using the REST API version 2020-06-01-preview or higher will not obliterate the service but put it into the soft-delete state. It can be restored or purged (deleted forever) from this state. If nothing is done, the APIM will purge itself after a specific time.">
+<meta name=generator content="Hugo 0.92.1 with theme even">
+<link rel=canonical href=https://manualbashing.github.io/post/2022-02-10-soft-deleted-apim/>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/manifest.json>
+<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
+<link href=/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css rel=stylesheet>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
+<meta property="og:title" content="How to restore or purge soft-deleted Azure API management services">
+<meta property="og:description" content="Starting with REST API version, 2020-06-01-preview , Microsoft introduced the soft-delete feature to API Management service (APIM) (See: Azure API Management soft-delete (preview) | Microsoft Docs)
+Deleting an APIM using the REST API version 2020-06-01-preview or higher will not obliterate the service but put it into the soft-delete state. It can be restored or purged (deleted forever) from this state. If nothing is done, the APIM will purge itself after a specific time.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://manualbashing.github.io/post/2022-02-10-soft-deleted-apim/"><meta property="article:section" content="post">
+<meta property="article:published_time" content="2022-02-10T00:00:00+00:00">
+<meta property="article:modified_time" content="2022-02-10T00:00:00+00:00">
+<meta itemprop=name content="How to restore or purge soft-deleted Azure API management services">
+<meta itemprop=description content="Starting with REST API version, 2020-06-01-preview , Microsoft introduced the soft-delete feature to API Management service (APIM) (See: Azure API Management soft-delete (preview) | Microsoft Docs)
+Deleting an APIM using the REST API version 2020-06-01-preview or higher will not obliterate the service but put it into the soft-delete state. It can be restored or purged (deleted forever) from this state. If nothing is done, the APIM will purge itself after a specific time."><meta itemprop=datePublished content="2022-02-10T00:00:00+00:00">
+<meta itemprop=dateModified content="2022-02-10T00:00:00+00:00">
+<meta itemprop=wordCount content="512">
+<meta itemprop=keywords content="APIM,AzureCLI,"><meta name=twitter:card content="summary">
+<meta name=twitter:title content="How to restore or purge soft-deleted Azure API management services">
+<meta name=twitter:description content="Starting with REST API version, 2020-06-01-preview , Microsoft introduced the soft-delete feature to API Management service (APIM) (See: Azure API Management soft-delete (preview) | Microsoft Docs)
+Deleting an APIM using the REST API version 2020-06-01-preview or higher will not obliterate the service but put it into the soft-delete state. It can be restored or purged (deleted forever) from this state. If nothing is done, the APIM will purge itself after a specific time."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
+</head>
+<body>
+<div id=mobile-navbar class=mobile-navbar>
+<div class=mobile-header-logo>
+<a href=/ class=logo>ManualBashing</a>
+</div>
+<div class=mobile-navbar-icon>
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+<nav id=mobile-menu class="mobile-menu slideout-menu">
+<ul class=mobile-menu-list>
+<a href=/>
+<li class=mobile-menu-item>Home</li>
+</a><a href=/post/>
+<li class=mobile-menu-item>Archives</li>
+</a><a href=/tags/>
+<li class=mobile-menu-item>Tags</li>
+</a><a href=/about-page/>
+<li class=mobile-menu-item>About</li>
+</a>
+</ul>
+</nav>
+<div class=container id=mobile-panel>
+<header id=header class=header>
+<div class=logo-wrapper>
+<a href=/ class=logo>ManualBashing</a>
+</div>
+<nav class=site-navbar>
+<ul id=menu class=menu>
+<li class=menu-item>
+<a class=menu-item-link href=/>Home</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/post/>Archives</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/tags/>Tags</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/about-page/>About</a>
+</li>
+</ul>
+</nav>
+</header>
+<main id=main class=main>
+<div class=content-wrapper>
+<div id=content class=content>
+<article class=post>
+<header class=post-header>
+<h1 class=post-title>How to restore or purge soft-deleted Azure API management services</h1>
+<div class=post-meta>
+<span class=post-time> 2022-02-10 </span>
+<span class=more-meta> 512 words </span>
+<span class=more-meta> 3 mins read </span>
+</div>
+</header>
+<div class=post-toc id=post-toc>
+<h2 class=post-toc-title>Contents</h2>
+<div class="post-toc-content always-active">
+<nav id=TableOfContents>
+<ul>
+<li>
+<ul>
+<li><a href=#list-all-soft-deleted-instances>List all soft-deleted instances</a></li>
+<li><a href=#restore-a-soft-deleted-instance>Restore a soft-deleted instance</a></li>
+<li><a href=#purge-a-soft-deleted-instance>Purge a soft-deleted instance</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<div class=post-content>
+<p>Starting with REST API version, <code>2020-06-01-preview</code> , Microsoft introduced the soft-delete feature to API Management service (APIM) (See: <a href=https://docs.microsoft.com/en-us/azure/api-management/soft-delete>Azure API Management soft-delete (preview) | Microsoft Docs</a>)</p>
+<p>Deleting an APIM using the REST API version <code>2020-06-01-preview</code> or higher will not obliterate the service but put it into the soft-delete state. It can be restored or purged (deleted forever) from this state. If nothing is done, the APIM will purge itself after a specific time.</p>
+<p>No need to mention that this is a valuable feature, but it has downsides too, that have caused people headaches: <a href=https://github.com/Azure/azure-cli/issues/16138>APIM gets stuck in soft-delete state · Issue #16138 · Azure/azure-cli (github.com)</a></p>
+<p>As far as I see it, the problem lies in a combination of three factors:</p>
+<ol>
+<li>Once soft-deleted, the name of the APIM is still reserved, and attempts to deploy an APIM with the same name will fail.</li>
+<li>Functionality to manage soft-deleted APIM instances has not yet (10th of Feb. 2022) been added to neither azure CLI nor the Azure portal.</li>
+<li>Deleting an APIM from the Azure Portal by either deleting it directly or removing its resource group will put it into the soft-delete state.</li>
+</ol>
+<p>So far, the only way to manage a soft-deleted APIM is the Azure REST API: <a href=https://docs.microsoft.com/en-us/rest/api/apimanagement/current-ga/deleted-services>Deleted Services - REST API (Azure API Management) | Microsoft Docs</a></p>
+<p>Fortunately, the Azure REST API can be called directly from the Azure CLI using the <code>az rest</code> namespace: <a href="https://docs.microsoft.com/en-us/cli/azure/reference-index?view=azure-cli-latest#az-rest">az | Microsoft Docs</a></p>
+<p>Here are some examples of how to manage soft-deleted APIM instances using the Azure REST API with Azure CLI:</p>
+<h2 id=list-all-soft-deleted-instances>List all soft-deleted instances</h2>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>  <span class=nv>subscriptionId</span><span class=o>=</span><span class=k>$(</span>az account show --query id --output tsv<span class=k>)</span>
+  az rest <span class=se>\
+</span><span class=se></span>    --method GET <span class=se>\
+</span><span class=se></span>    --header <span class=s2>&#34;Accept=application/json&#34;</span> <span class=se>\
+</span><span class=se></span>    --uri <span class=s2>&#34;https://management.azure.com/subscriptions/</span><span class=si>${</span><span class=nv>subscriptionId</span><span class=si>}</span><span class=s2>/providers/Microsoft.ApiManagement/deletedservices?api-version=2021-08-01&#34;</span>
+</code></pre></div><p>Source: <a href=https://docs.microsoft.com/en-us/rest/api/apimanagement/current-ga/deleted-services/list-by-subscription>Deleted Services - List By Subscription - REST API (Azure API Management) | Microsoft Docs</a></p>
+<h2 id=restore-a-soft-deleted-instance>Restore a soft-deleted instance</h2>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=nv>apimName</span><span class=o>=</span><span class=s2>&#34;{ name of the APIM instance that you want to restore }&#34;</span>
+
+<span class=c1># we will try to derive the remaining parameters from context</span>
+<span class=nv>subscriptionId</span><span class=o>=</span><span class=k>$(</span>az account show --query id --output tsv<span class=k>)</span>
+<span class=nv>apimObj</span><span class=o>=</span><span class=k>$(</span>az rest <span class=se>\
+</span><span class=se></span>  --method GET <span class=se>\
+</span><span class=se></span>  --header <span class=s2>&#34;Accept=application/json&#34;</span> <span class=se>\
+</span><span class=se></span>  --uri <span class=s2>&#34;https://management.azure.com/subscriptions/</span><span class=si>${</span><span class=nv>subscriptionId</span><span class=si>}</span><span class=s2>/providers/Microsoft.ApiManagement/deletedservices?api-version=2021-08-01&#34;</span> <span class=se>\
+</span><span class=se></span>  --query <span class=s2>&#34;value[?name == &#39;</span><span class=si>${</span><span class=nv>apimName</span><span class=si>}</span><span class=s2>&#39;]&#34;</span><span class=k>)</span>
+<span class=nv>location</span><span class=o>=</span><span class=k>$(</span><span class=nb>echo</span> <span class=nv>$apimObj</span> <span class=p>|</span> jq -r <span class=s1>&#39;.[].location&#39;</span><span class=k>)</span>
+<span class=nv>resourceGroupName</span><span class=o>=</span><span class=k>$(</span>
+  <span class=nb>echo</span> <span class=nv>$apimObj</span> <span class=p>|</span>
+  jq -r <span class=s1>&#39;.[].properties.serviceId&#39;</span> <span class=p>|</span>
+  sed -E <span class=s1>&#39;s|.*resourceGroups/([^/]+).*|\1|g&#39;</span><span class=k>)</span>
+
+
+<span class=c1># Here comes the actual call to the api to restore the APIM instance</span>
+az rest <span class=se>\
+</span><span class=se></span>  --method PUT <span class=se>\
+</span><span class=se></span>  --header <span class=s2>&#34;Accept=application/json&#34;</span> <span class=se>\
+</span><span class=se></span>  --uri <span class=s2>&#34;https://management.azure.com/subscriptions/</span><span class=si>${</span><span class=nv>subscriptionId</span><span class=si>}</span><span class=s2>/resourceGroups/</span><span class=si>${</span><span class=nv>resourceGroupName</span><span class=si>}</span><span class=s2>/providers/Microsoft.ApiManagement/service/</span><span class=si>${</span><span class=nv>apimName</span><span class=si>}</span><span class=s2>?api-version=2021-08-01&#34;</span> <span class=se>\
+</span><span class=se></span>  --body <span class=s2>&#34;{\&#34;location\&#34;:\&#34;</span><span class=si>${</span><span class=nv>location</span><span class=si>}</span><span class=s2>\&#34;,\&#34;properties\&#34;: {\&#34;restore\&#34; : true} }&#34;</span>
+<span class=o>}</span>
+</code></pre></div><p>Source: <a href=https://docs.microsoft.com/en-us/rest/api/apimanagement/current-ga/api-management-service/create-or-update>Api Management Service - Create Or Update - REST API (Azure API Management) | Microsoft Docs</a></p>
+<h2 id=purge-a-soft-deleted-instance>Purge a soft-deleted instance</h2>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=nv>apimName</span><span class=o>=</span><span class=s2>&#34;{ name of the APIM instance that you want to purge }&#34;</span>
+
+<span class=c1># we will try to derive the remaining parameters from context</span>
+<span class=nv>subscriptionId</span><span class=o>=</span><span class=k>$(</span>az account show --query id --output tsv<span class=k>)</span>
+<span class=nv>apimObj</span><span class=o>=</span><span class=k>$(</span>az rest <span class=se>\
+</span><span class=se></span>  --method GET <span class=se>\
+</span><span class=se></span>  --header <span class=s2>&#34;Accept=application/json&#34;</span> <span class=se>\
+</span><span class=se></span>  --uri <span class=s2>&#34;https://management.azure.com/subscriptions/</span><span class=si>${</span><span class=nv>subscriptionId</span><span class=si>}</span><span class=s2>/providers/Microsoft.ApiManagement/deletedservices?api-version=2021-08-01&#34;</span> <span class=se>\
+</span><span class=se></span>  --query <span class=s2>&#34;value[?name == &#39;</span><span class=si>${</span><span class=nv>apimName</span><span class=si>}</span><span class=s2>&#39;]&#34;</span><span class=k>)</span>
+<span class=nv>location</span><span class=o>=</span><span class=k>$(</span><span class=nb>echo</span> <span class=nv>$apimObj</span> <span class=p>|</span> jq -r <span class=s1>&#39;.[].location&#39;</span><span class=k>)</span>
+<span class=nv>resourceGroupName</span><span class=o>=</span><span class=k>$(</span>
+  <span class=nb>echo</span> <span class=nv>$apimObj</span> <span class=p>|</span>
+  jq -r <span class=s1>&#39;.[].properties.serviceId&#39;</span> <span class=p>|</span>
+  sed -E <span class=s1>&#39;s|.*resourceGroups/([^/]+).*|\1|g&#39;</span><span class=k>)</span>
+
+
+<span class=c1># Here comes the actual call to the api to purge the APIM instance</span>
+az rest <span class=se>\
+</span><span class=se></span>  --method DELETE <span class=se>\
+</span><span class=se></span>  --header <span class=s2>&#34;Accept=application/json&#34;</span> <span class=se>\
+</span><span class=se></span>  --uri <span class=s2>&#34;https://management.azure.com/subscriptions/</span><span class=si>${</span><span class=nv>subscriptionId</span><span class=si>}</span><span class=s2>/resourceGroups/</span><span class=si>${</span><span class=nv>resourceGroupName</span><span class=si>}</span><span class=s2>/providers/Microsoft.ApiManagement/service/</span><span class=si>${</span><span class=nv>apimName</span><span class=si>}</span><span class=s2>?api-version=2021-08-01&#34;</span>
+</code></pre></div><p>Source: <a href=https://docs.microsoft.com/en-us/azure/api-management/soft-delete#purge-a-soft-deleted-instance>Azure API Management soft-delete (preview) | Microsoft Docs</a></p>
+</div>
+<div class=post-copyright>
+<p class=copyright-item>
+<span class=item-title>Author</span>
+<span class=item-content>Manuel Batsching</span>
+</p>
+<p class=copyright-item>
+<span class=item-title>LastMod</span>
+<span class=item-content>
+2022-02-10
+</span>
+</p>
+</div>
+<footer class=post-footer>
+<div class=post-tags>
+<a href=/tags/apim/>APIM</a>
+<a href=/tags/azurecli/>AzureCLI</a>
+</div>
+<nav class=post-nav>
+<a class=next href=/post/2021-06-24-dotnet-build-fails-for-angular-app-if-nodejs-was-installed-using-asdf/>
+<span class="next-text nav-default">dotnet build would fail for an angular app if nodejs were installed using asdf</span>
+<span class="next-text nav-mobile">Next</span>
+<i class="iconfont icon-right"></i>
+</a>
+</nav>
+</footer>
+</article>
+</div>
+</div>
+</main>
+<footer id=footer class=footer>
+<div class=social-links>
+<a href=https://stackoverflow.com/users/565359/manuel-batsching class="iconfont icon-stack-overflow" title=stack-overflow></a>
+<a href=https://twitter.com/manualbashing class="iconfont icon-twitter" title=twitter></a>
+<a href=https://github.com/manualbashing class="iconfont icon-github" title=github></a>
+<a href=https://manualbashing.github.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
+</div>
+<div class=copyright>
+<span class=power-by>
+Powered by <a class=hexo-link href=https://gohugo.io>Hugo</a>
+</span>
+<span class=division>|</span>
+<span class=theme-info>
+Theme -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a>
+</span>
+<span class=copyright-year>
+&copy;
+2022<span class=heart><i class="iconfont icon-heart"></i></span><span>Manuel Batsching</span>
+</span>
+</div>
+</footer>
+<div class=back-to-top id=back-to-top>
+<i class="iconfont icon-up"></i>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
+<script type=text/javascript src=/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js></script>
+</body>
+</html>
