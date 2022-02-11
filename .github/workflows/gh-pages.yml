@@ -33,4 +33,5 @@ jobs:
       
       - name: Copy static files to root
         run: |
+         mkdir ${GITHUB_WORKSPACE}/public/static
          cp -r ${GITHUB_WORKSPACE}/static ${GITHUB_WORKSPACE}/public/static
