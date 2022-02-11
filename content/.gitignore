@@ -1,0 +1,5 @@
+
+# Ignore drafts
+/*.md
+!about-Page.md
+static
