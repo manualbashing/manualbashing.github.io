@@ -1,5 +1,5 @@
 ---
-title:  "How to restore or purge soft-deleted Azure API management services"
+title:  "How to restore or purge a soft-deleted Azure API management service instance"
 date: 2022-02-10
 tags:
   - APIM
@@ -9,6 +9,8 @@ tags:
 Starting with REST API version, `2020-06-01-preview` , Microsoft introduced the soft-delete feature to API Management service (APIM) (See: [Azure API Management soft-delete (preview) | Microsoft Docs](https://docs.microsoft.com/en-us/azure/api-management/soft-delete))
 
 Deleting an APIM using the REST API version `2020-06-01-preview` or higher will not obliterate the service but put it into the soft-delete state. It can be restored or purged (deleted forever) from this state. If nothing is done, the APIM will purge itself after a specific time.
+
+![](/static/apim-meme.jpg)
 
 No need to mention that this is a valuable feature, but it has downsides too, that have caused people headaches: [APIM gets stuck in soft-delete state · Issue #16138 · Azure/azure-cli (github.com)](https://github.com/Azure/azure-cli/issues/16138)
 
@@ -40,22 +42,10 @@ Source: [Deleted Services - List By Subscription - REST API (Azure API Managemen
 
 ```bash
 apimName="{ name of the APIM instance that you want to restore }"
-
-# we will try to derive the remaining parameters from context
 subscriptionId=$(az account show --query id --output tsv)
-apimObj=$(az rest \
-  --method GET \
-  --header "Accept=application/json" \
-  --uri "https://management.azure.com/subscriptions/${subscriptionId}/providers/Microsoft.ApiManagement/deletedservices?api-version=2021-08-01" \
-  --query "value[?name == '${apimName}']")
-location=$(echo $apimObj | jq -r '.[].location')
-resourceGroupName=$(
-  echo $apimObj |
-  jq -r '.[].properties.serviceId' |
-  sed -E 's|.*resourceGroups/([^/]+).*|\1|g')
+location="{ location of the APIM} "
+resourceGroupName="{ name of the resource group where the APIM resides }"
 
-
-# Here comes the actual call to the api to restore the APIM instance
 az rest \
   --method PUT \
   --header "Accept=application/json" \
@@ -70,8 +60,24 @@ Source: [Api Management Service - Create Or Update - REST API (Azure API Managem
 
 ```bash
 apimName="{ name of the APIM instance that you want to purge }"
+subscriptionId=$(az account show --query id --output tsv)
+resourceGroupName="{ name of the resource group where the APIM resides }"
 
-# we will try to derive the remaining parameters from context
+# Here comes the actual call to the api to purge the APIM instance
+az rest \
+  --method DELETE \
+  --header "Accept=application/json" \
+  --uri "https://management.azure.com/subscriptions/${subscriptionId}/resourceGroups/${resourceGroupName}/providers/Microsoft.ApiManagement/service/${apimName}?api-version=2021-08-01"
+```
+
+Source: [Azure API Management soft-delete (preview) | Microsoft Docs](https://docs.microsoft.com/en-us/azure/api-management/soft-delete#purge-a-soft-deleted-instance)
+
+## Derive parameter values from the context
+
+Instead of setting all the required parameters manually, you can actually derive them from the context, if you specify the name of the APIM instance.
+
+```bash
+apimName="{ name of the APIM instance }"
 subscriptionId=$(az account show --query id --output tsv)
 apimObj=$(az rest \
   --method GET \
@@ -83,13 +89,5 @@ resourceGroupName=$(
   echo $apimObj |
   jq -r '.[].properties.serviceId' |
   sed -E 's|.*resourceGroups/([^/]+).*|\1|g')
-
-
-# Here comes the actual call to the api to purge the APIM instance
-az rest \
-  --method DELETE \
-  --header "Accept=application/json" \
-  --uri "https://management.azure.com/subscriptions/${subscriptionId}/resourceGroups/${resourceGroupName}/providers/Microsoft.ApiManagement/service/${apimName}?api-version=2021-08-01"
 ```
 
-Source: [Azure API Management soft-delete (preview) | Microsoft Docs](https://docs.microsoft.com/en-us/azure/api-management/soft-delete#purge-a-soft-deleted-instance)
