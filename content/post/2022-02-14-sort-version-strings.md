@@ -9,9 +9,8 @@ When sorting or comparing version numbers in PowerShell (to determine the latest
 PowerShell sorts strings in a lexical way, which means that it compares strings character by character to determine the sort order. This works well for words: `fool` will come after `foo` but before `fox`.  This does not work well for version strings:
 
 ```powershell
-❯ '1.0.0', '0.5.0-preview', '0.50.0', '0.5.339', '0.6.0' | sort
+❯ '1.0.0', '0.50.0', '0.5.339', '0.6.0' | sort
 
-0.5.0-preview
 0.5.339
 0.50.0
 0.6.0 👈 
@@ -41,9 +40,8 @@ True
 And we can use this for sorting:
 
 ```powershell
-❯ '1.0.0', '0.5.0-preview', '0.50.0', '0.5.339', '0.6.0' | sort { $_ -as [version]  }
+❯ '1.0.0', '0.50.0', '0.5.339', '0.6.0' | sort { $_ -as [version]  }
 
-0.5.0-preview
 0.5.339
 0.6.0 👈
 0.50.0
