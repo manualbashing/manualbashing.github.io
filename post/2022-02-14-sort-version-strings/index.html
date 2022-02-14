@@ -36,7 +36,7 @@ PowerShell sorts strings in a lexical way, which means that it compares strings 
 PowerShell sorts strings in a lexical way, which means that it compares strings character by character to determine the sort order. This works well for words: fool will come after foo but before fox. This does not work well for version strings:
 ❯ '1.0.0', '0."><meta itemprop=datePublished content="2022-02-14T12:50:28+01:00">
 <meta itemprop=dateModified content="2022-02-14T12:50:28+01:00">
-<meta itemprop=wordCount content="166">
+<meta itemprop=wordCount content="162">
 <meta itemprop=keywords content><meta name=twitter:card content="summary">
 <meta name=twitter:title content="Use PowerShell to sort version strings">
 <meta name=twitter:description content="When sorting or comparing version numbers in PowerShell (to determine the latest version of a release, etc.), be careful not to work with plain version strings.
@@ -95,7 +95,7 @@ PowerShell sorts strings in a lexical way, which means that it compares strings 
 <h1 class=post-title>Use PowerShell to sort version strings</h1>
 <div class=post-meta>
 <span class=post-time> 2022-02-14 </span>
-<span class=more-meta> 166 words </span>
+<span class=more-meta> 162 words </span>
 <span class=more-meta> 1 min read </span>
 </div>
 </header>
@@ -108,9 +108,8 @@ PowerShell sorts strings in a lexical way, which means that it compares strings 
 <div class=post-content>
 <p>When sorting or comparing version numbers in PowerShell (to determine the latest version of a release, etc.), be careful not to work with plain version strings.</p>
 <p>PowerShell sorts strings in a lexical way, which means that it compares strings character by character to determine the sort order. This works well for words: <code>fool</code> will come after <code>foo</code> but before <code>fox</code>. This does not work well for version strings:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=err>❯</span> <span class=s1>&#39;1.0.0&#39;</span><span class=p>,</span> <span class=s1>&#39;0.5.0-preview&#39;</span><span class=p>,</span> <span class=s1>&#39;0.50.0&#39;</span><span class=p>,</span> <span class=s1>&#39;0.5.339&#39;</span><span class=p>,</span> <span class=s1>&#39;0.6.0&#39;</span> <span class=p>|</span> <span class=nb>sort
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=err>❯</span> <span class=s1>&#39;1.0.0&#39;</span><span class=p>,</span> <span class=s1>&#39;0.50.0&#39;</span><span class=p>,</span> <span class=s1>&#39;0.5.339&#39;</span><span class=p>,</span> <span class=s1>&#39;0.6.0&#39;</span> <span class=p>|</span> <span class=nb>sort
 </span><span class=nb></span>
-<span class=n>0</span><span class=p>.</span><span class=n>5</span><span class=p>.</span><span class=n>0-preview</span>
 <span class=n>0</span><span class=p>.</span><span class=n>5</span><span class=p>.</span><span class=n>339</span>
 <span class=n>0</span><span class=p>.</span><span class=n>50</span><span class=p>.</span><span class=n>0</span>
 <span class=n>0</span><span class=p>.</span><span class=n>6</span><span class=p>.</span><span class=n>0</span> <span class=err>👈</span> 
@@ -128,9 +127,8 @@ PowerShell sorts strings in a lexical way, which means that it compares strings 
 <span class=err>❯</span> <span class=no>[version]</span><span class=s1>&#39;0.50.0&#39;</span> <span class=o>-gt</span> <span class=no>[version]</span><span class=s1>&#39;0.6.0&#39;</span> 
 <span class=n>True</span>
 </code></pre></div><p>And we can use this for sorting:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=err>❯</span> <span class=s1>&#39;1.0.0&#39;</span><span class=p>,</span> <span class=s1>&#39;0.5.0-preview&#39;</span><span class=p>,</span> <span class=s1>&#39;0.50.0&#39;</span><span class=p>,</span> <span class=s1>&#39;0.5.339&#39;</span><span class=p>,</span> <span class=s1>&#39;0.6.0&#39;</span> <span class=p>|</span> <span class=nb>sort </span><span class=p>{</span> <span class=nv>$_</span> <span class=o>-as</span> <span class=no>[version]</span>  <span class=p>}</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=err>❯</span> <span class=s1>&#39;1.0.0&#39;</span><span class=p>,</span> <span class=s1>&#39;0.50.0&#39;</span><span class=p>,</span> <span class=s1>&#39;0.5.339&#39;</span><span class=p>,</span> <span class=s1>&#39;0.6.0&#39;</span> <span class=p>|</span> <span class=nb>sort </span><span class=p>{</span> <span class=nv>$_</span> <span class=o>-as</span> <span class=no>[version]</span>  <span class=p>}</span>
 
-<span class=n>0</span><span class=p>.</span><span class=n>5</span><span class=p>.</span><span class=n>0-preview</span>
 <span class=n>0</span><span class=p>.</span><span class=n>5</span><span class=p>.</span><span class=n>339</span>
 <span class=n>0</span><span class=p>.</span><span class=n>6</span><span class=p>.</span><span class=n>0</span> <span class=err>👈</span>
 <span class=n>0</span><span class=p>.</span><span class=n>50</span><span class=p>.</span><span class=n>0</span>
