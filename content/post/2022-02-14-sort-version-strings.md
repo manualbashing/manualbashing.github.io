@@ -63,7 +63,7 @@ This method will not work if the version string has a postfix like `-preview`:
 1.0.0
 ```
 
-This happens because the string `0.6.0-preview` fails the cast to `[version]`, so `Sort-Object` has no idea what to do with it. (Depending on your PowerShell version the last command might cause an exception. In version 7.2.1 it failed silently.)
+This happens because the string `0.6.0-preview` fails the cast to `[version]`, so `Sort-Object` has no idea what to do with it. (Depending on your PowerShell version the last command might cause an exception. In my version 7.2.1 it fails silently.)
 
 One way to work around this issue is to use a regex to strip the postfix from the version string before casting it to `[version]`.
 
@@ -79,7 +79,7 @@ One way to work around this issue is to use a regex to strip the postfix from th
 1.0.0
 ```
 
-But here we see a new problem: there is no inner sort for the same version number with different postfixes. This in our example because `Sort-Object` never gets to see the postfix.
+But here we see a new problem: there is no inner sort for the same version number with different postfixes. This happens in our example, because `Sort-Object` never gets to see the postfix.
 
 Fortunately `Sort-Object` allows us to specify an inner sort using a second scriptblock:
 
