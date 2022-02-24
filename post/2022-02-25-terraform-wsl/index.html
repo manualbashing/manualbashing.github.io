@@ -1,0 +1,259 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
+<title>Issues with Terraform and WSL: Unable to list provider registration status - ManualBashing - Notes and thoughts of Manuel Batsching</title>
+<meta name=renderer content="webkit">
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv=cache-control content="no-transform">
+<meta http-equiv=cache-control content="no-siteapp">
+<meta name=theme-color content="#f8f5ec">
+<meta name=msapplication-navbutton-color content="#f8f5ec">
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
+<meta name=author content="Manuel Batsching"><meta name=description content="The problem Today, something weird happened when I was using terraform in my WSL2 to deploy some infrastructure to Azure. I was initializing terraform, typed:
+terraform plan And&amp;hellip; nothing happened.
+After waiting a small eternity the following error popped up on my console:
+ Error: Unable to list provider registration status; it is possible that this is due to invalid credentials or the service principal does not have permission to use the Resource Manager API, Azure error: resources.">
+<meta name=generator content="Hugo 0.92.2 with theme even">
+<link rel=canonical href=https://manualbashing.github.io/post/2022-02-25-terraform-wsl/>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/manifest.json>
+<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
+<link href=/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css rel=stylesheet>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
+<meta property="og:title" content="Issues with Terraform and WSL: Unable to list provider registration status">
+<meta property="og:description" content="The problem Today, something weird happened when I was using terraform in my WSL2 to deploy some infrastructure to Azure. I was initializing terraform, typed:
+terraform plan And&mldr; nothing happened.
+After waiting a small eternity the following error popped up on my console:
+ Error: Unable to list provider registration status; it is possible that this is due to invalid credentials or the service principal does not have permission to use the Resource Manager API, Azure error: resources.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://manualbashing.github.io/post/2022-02-25-terraform-wsl/"><meta property="article:section" content="post">
+<meta property="article:published_time" content="2022-02-24T11:03:43+01:00">
+<meta property="article:modified_time" content="2022-02-24T11:03:43+01:00">
+<meta itemprop=name content="Issues with Terraform and WSL: Unable to list provider registration status">
+<meta itemprop=description content="The problem Today, something weird happened when I was using terraform in my WSL2 to deploy some infrastructure to Azure. I was initializing terraform, typed:
+terraform plan And&mldr; nothing happened.
+After waiting a small eternity the following error popped up on my console:
+ Error: Unable to list provider registration status; it is possible that this is due to invalid credentials or the service principal does not have permission to use the Resource Manager API, Azure error: resources."><meta itemprop=datePublished content="2022-02-24T11:03:43+01:00">
+<meta itemprop=dateModified content="2022-02-24T11:03:43+01:00">
+<meta itemprop=wordCount content="673">
+<meta itemprop=keywords content><meta name=twitter:card content="summary">
+<meta name=twitter:title content="Issues with Terraform and WSL: Unable to list provider registration status">
+<meta name=twitter:description content="The problem Today, something weird happened when I was using terraform in my WSL2 to deploy some infrastructure to Azure. I was initializing terraform, typed:
+terraform plan And&mldr; nothing happened.
+After waiting a small eternity the following error popped up on my console:
+ Error: Unable to list provider registration status; it is possible that this is due to invalid credentials or the service principal does not have permission to use the Resource Manager API, Azure error: resources."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
+</head>
+<body>
+<div id=mobile-navbar class=mobile-navbar>
+<div class=mobile-header-logo>
+<a href=/ class=logo>ManualBashing</a>
+</div>
+<div class=mobile-navbar-icon>
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+<nav id=mobile-menu class="mobile-menu slideout-menu">
+<ul class=mobile-menu-list>
+<a href=/>
+<li class=mobile-menu-item>Home</li>
+</a><a href=/post/>
+<li class=mobile-menu-item>Archives</li>
+</a><a href=/tags/>
+<li class=mobile-menu-item>Tags</li>
+</a><a href=/about-page/>
+<li class=mobile-menu-item>About</li>
+</a>
+</ul>
+</nav>
+<div class=container id=mobile-panel>
+<header id=header class=header>
+<div class=logo-wrapper>
+<a href=/ class=logo>ManualBashing</a>
+</div>
+<nav class=site-navbar>
+<ul id=menu class=menu>
+<li class=menu-item>
+<a class=menu-item-link href=/>Home</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/post/>Archives</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/tags/>Tags</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/about-page/>About</a>
+</li>
+</ul>
+</nav>
+</header>
+<main id=main class=main>
+<div class=content-wrapper>
+<div id=content class=content>
+<article class=post>
+<header class=post-header>
+<h1 class=post-title>Issues with Terraform and WSL: Unable to list provider registration status</h1>
+<div class=post-meta>
+<span class=post-time> 2022-02-24 </span>
+<span class=more-meta> 673 words </span>
+<span class=more-meta> 4 mins read </span>
+</div>
+</header>
+<div class=post-toc id=post-toc>
+<h2 class=post-toc-title>Contents</h2>
+<div class="post-toc-content always-active">
+<nav id=TableOfContents>
+<ul>
+<li>
+<ul>
+<li><a href=#the-problem>The problem</a></li>
+<li><a href=#the-cause>The cause</a></li>
+<li><a href=#the-workaround>The workaround</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<div class=post-content>
+<h2 id=the-problem>The problem</h2>
+<p>Today, something weird happened when I was using terraform in my WSL2 to deploy some infrastructure to Azure. I was initializing terraform, typed:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>terraform plan
+</code></pre></div><p>And&mldr; nothing happened.</p>
+<p><img src=/static/10minuteslater.png alt="10 minutes later"></p>
+<p>After waiting a small eternity the following error popped up on my console:</p>
+<blockquote>
+<p><strong>Error: Unable to list provider registration status; it is possible that this is due to invalid credentials or the service principal does not have permission to use the Resource Manager API</strong>, Azure error: resources. ProvidersClient#List: Failure sending request: StatusCode=0 &ndash; Original Error: Get &ldquo;<a href="https://management.azure.com/subscriptions/xxxxx-xxxx-xxxx-xxxx-xxxxxxxx/providers?api-version=2016-02-01%22:%22">https://management.azure.com/subscriptions/xxxxx-xxxx-xxxx-xxxx-xxxxxxxx/providers?api-version=2016-02-01%22:"</a> dial tcp: lookup management.azure.com on 172.23.224.1:53: <strong>cannot unmarshal DNS message</strong></p>
+</blockquote>
+<h2 id=the-cause>The cause</h2>
+<p>What was going on? Apparently, <code>azurerm</code> (Terraform&rsquo;s provider for Azure Resource Manager) tried to resolve the hostname <code>management.azure.com</code> and was not happy with the response.</p>
+<p>After some excessive googling and GitHub-issue browsing, I finally hit gold: <a href=https://github.com/golang/go/issues/51127#issue-1129393515>net: 512 byte DNS response size limit causes an error when making requests to Azure on WSL2 · Issue #51127 · golang/go (github.com)</a></p>
+<p>The azurerm provider was written in Golang, and apparently, Golang&rsquo;s net/dns resolver applies a strict 512-byte limit to the response buffer. If the response exceeds that limit, the resolver will not be able to &ldquo;unmarshal the DNS message&rdquo;.</p>
+<p>A quick <code>dig</code> affirmed all suspicions:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>❯ dig management.azure.com
+
+<span class=p>;</span> &lt;&lt;&gt;&gt; DiG 9.16.1-Ubuntu &lt;&lt;&gt;&gt; management.azure.com
+<span class=p>;;</span> global options: +cmd
+<span class=p>;;</span> Got answer:
+<span class=p>;;</span> -&gt;&gt;HEADER<span class=s>&lt;&lt;- opco</span>de: QUERY, status: NOERROR, id: <span class=m>20748</span>
+<span class=p>;;</span> flags: qr rd ad<span class=p>;</span> QUERY: 1, ANSWER: 7, AUTHORITY: 0, ADDITIONAL: <span class=m>0</span>
+<span class=p>;;</span> WARNING: recursion requested but not available
+
+<span class=p>;;</span> QUESTION SECTION:
+<span class=p>;</span>management.azure.com.          IN      A
+
+<span class=p>;;</span> ANSWER SECTION:
+management.azure.com.   <span class=m>0</span>       IN      CNAME   management.privatelink.azure.com.
+management.privatelink.azure.com. <span class=m>0</span> IN  CNAME   arm-frontdoor-prod.trafficmanager.net.
+arm-frontdoor-prod.trafficmanager.net. <span class=m>0</span> IN CNAME germanywestcentral.management.azure.com.
+germanywestcentral.management.azure.com. <span class=m>0</span> IN CNAME arm-frontdoor-germanywestcentral.trafficmanager.net.
+arm-frontdoor-germanywestcentral.trafficmanager.net. <span class=m>0</span> IN CNAME germanywestcentral.cs.management.azure.com.
+germanywestcentral.cs.management.azure.com. <span class=m>0</span> IN CNAME rpfd-germanywestcentral.cloudapp.net.
+rpfd-germanywestcentral.cloudapp.net. <span class=m>0</span> IN A    51.116.156.32
+
+<span class=p>;;</span> Query time: <span class=m>40</span> msec
+<span class=p>;;</span> SERVER: 172.18.96.1#53<span class=o>(</span>172.18.96.1<span class=o>)</span>
+<span class=p>;;</span> WHEN: Thu Feb <span class=m>24</span> 21:09:39 CET <span class=m>2022</span>
+<span class=p>;;</span> MSG SIZE  rcvd: <span class=m>632</span> 👈
+</code></pre></div><p>Indeed, the response size was 632 bytes. <strong>But why did it work in the past?</strong> According to AaronFriel (see link above), Microsoft only recently added additional cnames to their management.azure.com endpoint, pushing the response size over the 512-byte limit.</p>
+<p><strong>Why is this happening only in WSL2?</strong> Per default, WSL2 uses the DNS configuration of the Hyper-V Virtual Network Adapter. This DNS server adds additional data to the ANSWER section of the response: <a href=https://github.com/microsoft/WSL/issues/5806>DNS server mixes AUTHORITY/ADDITIONAL section into ANSWER section while responding to queries · Issue #5806 · microsoft/WSL (github.com)</a></p>
+<h2 id=the-workaround>The workaround</h2>
+<p>What worked for me was forcing WSL2 to use an external DNS resolver like Google (<code>8.8.8.8</code>) or UltraDNS (<code>64.6.64.6</code>):</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>❯ dig management.azure.com @64.6.64.6
+
+<span class=p>;</span> &lt;&lt;&gt;&gt; DiG 9.16.1-Ubuntu &lt;&lt;&gt;&gt; management.azure.com @64.6.64.6
+<span class=p>;;</span> global options: +cmd
+<span class=p>;;</span> Got answer:
+<span class=p>;;</span> -&gt;&gt;HEADER<span class=s>&lt;&lt;- opcode: QUERY, status: NOERROR, id: 2007
+</span><span class=s>;; flags: qr rd ra; QUERY: 1, ANSWER: 7, AUTHORITY: 0, ADDITIONAL: 1
+</span><span class=s>
+</span><span class=s>;; OPT PSEUDOSECTION:
+</span><span class=s>; EDNS: version: 0, flags:; udp: 4096
+</span><span class=s>;; QUESTION SECTION:
+</span><span class=s>;management.azure.com.          IN      A
+</span><span class=s>
+</span><span class=s>;; ANSWER SECTION:
+</span><span class=s>management.azure.com.   424     IN      CNAME   management.privatelink.azure.com.
+</span><span class=s>management.privatelink.azure.com. 3002 IN CNAME arm-frontdoor-prod.trafficmanager.net.
+</span><span class=s>arm-frontdoor-prod.trafficmanager.net. 40 IN CNAME westeurop</span>e.management.azure.com.
+westeurope.management.azure.com. <span class=m>2516</span> IN CNAME  arm-frontdoor-westeurope.trafficmanager.net.
+arm-frontdoor-westeurope.trafficmanager.net. <span class=m>40</span> IN CNAME westeurope.cs.management.azure.com.
+westeurope.cs.management.azure.com. <span class=m>742</span> IN CNAME rpfd-prod-am-01.cloudapp.net.
+rpfd-prod-am-01.cloudapp.net. <span class=m>10</span> IN     A       13.69.114.0
+
+<span class=p>;;</span> Query time: <span class=m>40</span> msec
+<span class=p>;;</span> SERVER: 64.6.64.6#53<span class=o>(</span>64.6.64.6<span class=o>)</span>
+<span class=p>;;</span> WHEN: Thu Feb <span class=m>24</span> 21:30:11 CET <span class=m>2022</span>
+<span class=p>;;</span> MSG SIZE  rcvd: <span class=m>284</span> 👈
+</code></pre></div><p>That brought the response down to a size the resolver in Golang could digest.</p>
+<p>The DNS server in WSL2 is configured in the <code>/etc/resolv.conf</code>, which WSL2 generates on every boot. Changing anything here will not persist.</p>
+<p>You first need to tell WSL2 not to touch the file. Add the following to <code>/etc/wsl.conf</code> (if the file does not exist, feel free to create it):</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=o>[</span>network<span class=o>]</span>
+<span class=nv>generateResolvConf</span> <span class=o>=</span> <span class=nb>false</span>
+</code></pre></div><p>Now restart your WSL2 by typing <code>wsl.exe --shutdown</code> in the cmd command prompt. After WSL2 has started again, remove the sad remains of <code>/etc/resolv.conf</code> (it is a symlink now, that does not point anywhere anymore):</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>sudo rm /etc/resolv.conf
+</code></pre></div><p>Now add an external nameserver of your choice to the file:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash> <span class=nb>echo</span> <span class=s1>&#39;nameserver 64.6.64.6&#39;</span> <span class=p>|</span> sudo tee -a /etc/resolv.conf
+</code></pre></div><p>And that&rsquo;s it! After this change, terraform worked again in WSL2.</p>
+</div>
+<div class=post-copyright>
+<p class=copyright-item>
+<span class=item-title>Author</span>
+<span class=item-content>Manuel Batsching</span>
+</p>
+<p class=copyright-item>
+<span class=item-title>LastMod</span>
+<span class=item-content>
+2022-02-24
+</span>
+</p>
+</div>
+<footer class=post-footer>
+<nav class=post-nav>
+<a class=next href=/post/2022-02-14-sort-version-strings/>
+<span class="next-text nav-default">Use PowerShell to sort version strings</span>
+<span class="next-text nav-mobile">Next</span>
+<i class="iconfont icon-right"></i>
+</a>
+</nav>
+</footer>
+</article>
+</div>
+</div>
+</main>
+<footer id=footer class=footer>
+<div class=social-links>
+<a href=https://stackoverflow.com/users/565359/manuel-batsching class="iconfont icon-stack-overflow" title=stack-overflow></a>
+<a href=https://twitter.com/manualbashing class="iconfont icon-twitter" title=twitter></a>
+<a href=https://github.com/manualbashing class="iconfont icon-github" title=github></a>
+<a href=https://manualbashing.github.io/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
+</div>
+<div class=copyright>
+<span class=power-by>
+Powered by <a class=hexo-link href=https://gohugo.io>Hugo</a>
+</span>
+<span class=division>|</span>
+<span class=theme-info>
+Theme -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a>
+</span>
+<span class=copyright-year>
+&copy;
+2022<span class=heart><i class="iconfont icon-heart"></i></span><span>Manuel Batsching</span>
+</span>
+</div>
+</footer>
+<div class=back-to-top id=back-to-top>
+<i class="iconfont icon-up"></i>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
+<script type=text/javascript src=/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js></script>
+</body>
+</html>
