@@ -32,7 +32,7 @@ This site explains well how to enable a MSI in a Logic App using the azure porta
 
 ## Enable a MSI on a Logic App using bicep
 
-```bicep
+```json
 resource logicApp 'Microsoft.Logic/workflows@2019-05-01' = {
 
  name: logicAppName
@@ -42,4 +42,25 @@ resource logicApp 'Microsoft.Logic/workflows@2019-05-01' = {
  }
  properties: {}
 }
+```
+
+The connection parameter within the logic app looks like this:
+
+```json
+keyvault: {
+  connectionId: keyvaultConnection.id
+  connectionName: keyvaultConnection.name
+  connectionProperties: {
+    authentication: {
+      type: 'ManagedServiceIdentity'
+    }
+  }
+  id: subscriptionResourceId('Microsoft.Web/locations/managedApis', location, 'keyvault')
+}
+```
+
+This requires an extra connection object:
+
+```json
+
 ```
