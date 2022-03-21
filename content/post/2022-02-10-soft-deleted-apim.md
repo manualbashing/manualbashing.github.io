@@ -61,13 +61,13 @@ Source: [Api Management Service - Create Or Update - REST API (Azure API Managem
 ```bash
 apimName="{ name of the APIM instance that you want to purge }"
 subscriptionId=$(az account show --query id --output tsv)
-resourceGroupName="{ name of the resource group where the APIM resides }"
+location="{ location where the APIM resides }"
 
 # Here comes the actual call to the api to purge the APIM instance
 az rest \
   --method DELETE \
   --header "Accept=application/json" \
-  --uri "https://management.azure.com/subscriptions/${subscriptionId}/resourceGroups/${resourceGroupName}/providers/Microsoft.ApiManagement/service/${apimName}?api-version=2021-08-01"
+  --uri "https://management.azure.com/subscriptions/${subscriptionId}/providers/Microsoft.ApiManagement/locations/${location}/deletedservices/${apimName}?api-version=2021-08-01"
 ```
 
 Source: [Azure API Management soft-delete (preview) | Microsoft Docs](https://docs.microsoft.com/en-us/azure/api-management/soft-delete#purge-a-soft-deleted-instance)
@@ -84,10 +84,14 @@ apimObj=$(az rest \
   --header "Accept=application/json" \
   --uri "https://management.azure.com/subscriptions/${subscriptionId}/providers/Microsoft.ApiManagement/deletedservices?api-version=2021-08-01" \
   --query "value[?name == '${apimName}']")
-location=$(echo $apimObj | jq -r '.[].location')
+
+# location will be converted to lowercase without spaces
+location=$(echo $apimObj |
+  jq -r '.[].location' |
+  sed -e 's/./\L&/g' -e 's/ //g')
+
 resourceGroupName=$(
   echo $apimObj |
   jq -r '.[].properties.serviceId' |
   sed -E 's|.*resourceGroups/([^/]+).*|\1|g')
 ```
-
