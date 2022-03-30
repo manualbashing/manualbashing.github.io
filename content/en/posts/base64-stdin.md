@@ -1,10 +1,10 @@
 ---
 title: "Watch out for EOL characters when using the base64 tool with stdin"
 date: 2022-03-30T15:11:53+01:00
-draft: true
+draft: false
 ---
 
-In a linux environment the [base64 tool](http://manpages.ubuntu.com/manpages/bionic/man1/base64.1.html)  can be used to base64 encode or decode data. If called directly the tool expects a file path but it is also possible to use stdin. This means we can use `echo` or `printf` together with a pipe to encode (or decode) a string without writing it to a file first.
+In a Linux environment, the [base64 tool](http://manpages.ubuntu.com/manpages/bionic/man1/base64.1.html) can be used to base64 encode or decode data. If called directly the tool expects a file path but it is also possible to use stdin. This means we can use `echo` or `printf` together with a pipe to encode (or decode) a string without writing it to a file first.
 
 But be careful which command you use! The same string `'foobar'` will result in a different base64 encoded string, depending on whether `echo` or `printf` was used:
 
@@ -36,3 +36,8 @@ The end-of-line character is not only added by `echo`. Using the  `<<<` redirect
 0000000   f   o   o   b   a   r  \n
 0000007
 ```
+
+--- 
+
+**And by the way... 🧐**
+![](/static/base64.jpg)
