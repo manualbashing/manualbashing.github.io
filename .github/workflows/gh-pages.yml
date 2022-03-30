@@ -17,8 +17,8 @@ jobs:
 
       - name: Preserve static folder in path
         run: |
-         mkdir ${GITHUB_WORKSPACE}/static/static
-         find ${GITHUB_WORKSPACE}/static -maxdepth 1 -type f -exec mv {} ${GITHUB_WORKSPACE}/static/static \;
+         mkdir ${GITHUB_WORKSPACE}/content/en/static/static
+         find ${GITHUB_WORKSPACE}/content/en/static -maxdepth 1 -type f -exec mv {} ${GITHUB_WORKSPACE}/content/en/static/static \;
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
