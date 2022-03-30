@@ -4,5 +4,5 @@
 	branch = master
 [submodule "themes/yinyang"]
 	path = themes/yinyang
-	url = git@github.com:joway/hugo-theme-yinyang.git
+	url = git@github.com:manualbashing/hugo-theme-yinyang.git
 	branch = master
