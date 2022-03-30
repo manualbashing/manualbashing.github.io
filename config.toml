@@ -23,9 +23,6 @@ DefaultContentLanguage = "en"
     tabWidth = 4
 
 
-[author]
-  name = "Manuel Batsching"
-  homepage = "/about"
 
 [languages]
   [languages.en]
@@ -40,7 +37,7 @@ disqus = "manualbashing" # disqus account name
 #extraHead = '<script async src="https://www.googletagmanager.com/gtag/js?id=UA-xxx"></script>'
 
 [[params.socials]]
-name = "About Me"
+name = "About"
 link = "/about"
 [[params.socials]]
 name = "Github"
@@ -48,6 +45,9 @@ link = "https://github.com/manualbashing"
 [[params.socials]]
 name = "Twitter"
 link = "https:/twitter.com/manualbashing"
+[[params.socials]]
+name = "RSS"
+link = "/index.xml"
 
 postHeaderContent = ""
 # extraCSSFiles = ["css/foo.css", "css/bar.css"]
