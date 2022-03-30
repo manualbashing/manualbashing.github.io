@@ -49,7 +49,6 @@ link = "https:/twitter.com/manualbashing"
 name = "RSS"
 link = "/index.xml"
 
-postHeaderContent = ""
 # extraCSSFiles = ["css/foo.css", "css/bar.css"]
 extraCSSFiles = []
 
