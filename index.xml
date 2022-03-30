@@ -19,7 +19,7 @@
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#666">0000000&lt;/span> f o o b a r &lt;span style="color:#b62;font-weight:bold">\n&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#666">0000007&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
-&lt;p>&lt;strong>And by the way&amp;hellip; 🧐&lt;/strong>
+&lt;p>&lt;strong>🧐 And because it can&amp;rsquo;t be mentioned often enough:&lt;/strong> &amp;ldquo;Base64 is an encoding, &lt;a href="https://base64.guru/blog/base64-encryption-is-a-lie">not an encryption&lt;/a>&amp;rdquo;.
 &lt;img src="https://manualbashing.github.io/static/base64.jpg" alt="">&lt;/p></description></item><item><title>Issues with Terraform and WSL: Unable to list provider registration status</title><link>https://manualbashing.github.io/posts/2022-02-25-terraform-wsl/</link><pubDate>Thu, 24 Feb 2022 11:03:43 +0100</pubDate><guid>https://manualbashing.github.io/posts/2022-02-25-terraform-wsl/</guid><description>&lt;h2 id="the-problem">The problem&lt;/h2>
 &lt;p>Today, something weird happened when I was using terraform in my WSL2 to deploy some infrastructure to Azure. I was initializing terraform, typed:&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>terraform plan
