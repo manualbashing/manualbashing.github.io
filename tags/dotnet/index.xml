@@ -1,4 +1,37 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>dotnet on ManualBashing</title><link>https://manualbashing.github.io/tags/dotnet/</link><description>Recent content in dotnet on ManualBashing</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 24 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://manualbashing.github.io/tags/dotnet/index.xml" rel="self" type="application/rss+xml"/><item><title>dotnet build would fail for an angular app if nodejs were installed using asdf</title><link>https://manualbashing.github.io/posts/2021-06-24-dotnet-build-fails-for-angular-app-if-nodejs-was-installed-using-asdf/</link><pubDate>Thu, 24 Jun 2021 00:00:00 +0000</pubDate><guid>https://manualbashing.github.io/posts/2021-06-24-dotnet-build-fails-for-angular-app-if-nodejs-was-installed-using-asdf/</guid><description>I was creating a new angular project using a template via dotnet cli today:
-dotnet new angular Id did not have Node.js installed, so I installed it using asdf:
-asdf plugin add nodejs asdf install nodejs latest This successfully installed Node.js v16.4.0. But when I tried to build the example project using dotnet build, I ran into the following error:
-❯ dotnet build Microsoft (R) Build Engine version 16.7.2+b60ddb6f4 for .</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>dotnet on ManualBashing</title><link>https://manualbashing.github.io/tags/dotnet/</link><description>Recent content in dotnet on ManualBashing</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 24 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://manualbashing.github.io/tags/dotnet/index.xml" rel="self" type="application/rss+xml"/><item><title>dotnet build would fail for an angular app if nodejs were installed using asdf</title><link>https://manualbashing.github.io/posts/2021-06-24-dotnet-build-fails-for-angular-app-if-nodejs-was-installed-using-asdf/</link><pubDate>Thu, 24 Jun 2021 00:00:00 +0000</pubDate><guid>https://manualbashing.github.io/posts/2021-06-24-dotnet-build-fails-for-angular-app-if-nodejs-was-installed-using-asdf/</guid><description>&lt;p>I was creating a new angular project using a template via &lt;a href="https://docs.microsoft.com/en-us/dotnet/core/tools/">dotnet cli&lt;/a> today:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>dotnet new angular
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Id did not have Node.js installed, so I installed it using &lt;a href="https://asdf-vm.com/">asdf&lt;/a>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>asdf plugin add nodejs
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>asdf install nodejs latest
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>This successfully installed Node.js &lt;code>v16.4.0&lt;/code>. But when I tried to build the example project using &lt;code>dotnet build&lt;/code>, I ran into the following error:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>❯ dotnet build
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Microsoft &lt;span style="color:#666">(&lt;/span>R&lt;span style="color:#666">)&lt;/span> Build Engine version 16.7.2+b60ddb6f4 &lt;span style="color:#a2f;font-weight:bold">for&lt;/span> .NET
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Copyright &lt;span style="color:#666">(&lt;/span>C&lt;span style="color:#666">)&lt;/span> Microsoft Corporation. All rights reserved.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Determining projects to restore...
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> All projects are up-to-date &lt;span style="color:#a2f;font-weight:bold">for&lt;/span> restore.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> foo -&amp;gt; /home/mbatsching/git/foo/bin/Debug/netcoreapp3.1/foo.dll
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> foo -&amp;gt; /home/mbatsching/git/foo/bin/Debug/netcoreapp3.1/foo.Views.dll
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> No version &lt;span style="color:#a2f">set&lt;/span> &lt;span style="color:#a2f;font-weight:bold">for&lt;/span> &lt;span style="color:#a2f">command&lt;/span> node
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Consider adding one of the following versions in your config file at
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> nodejs 16.4.0
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>/home/mbatsching/git/foo/foo.csproj&lt;span style="color:#666">(&lt;/span>28,5&lt;span style="color:#666">)&lt;/span>: warning MSB3073: The &lt;span style="color:#a2f">command&lt;/span> &lt;span style="color:#b44">&amp;#34;node --version&amp;#34;&lt;/span> exited with code 126.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>/home/mbatsching/git/foo/foo.csproj&lt;span style="color:#666">(&lt;/span>28,5&lt;span style="color:#666">)&lt;/span>: warning MSB4181: The &lt;span style="color:#b44">&amp;#34;Exec&amp;#34;&lt;/span> task returned &lt;span style="color:#a2f">false&lt;/span> but did not log an error.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>/home/mbatsching/git/foo/foo.csproj&lt;span style="color:#666">(&lt;/span>31,5&lt;span style="color:#666">)&lt;/span>: error : Node.js is required to build and run this project. To &lt;span style="color:#a2f;font-weight:bold">continue&lt;/span>, please install Node.js from https://nodejs.org/, and &lt;span style="color:#a2f;font-weight:bold">then&lt;/span> restart your &lt;span style="color:#a2f">command&lt;/span> prompt or IDE.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>No version set for command &lt;code>node&lt;/code>?  That error is produced by the shim that asdf creates for the node executable. It needs to know which version of Node.js should be used in the current project.&lt;/p>
+&lt;p>This can be done by creating a file named &lt;code>.tool-versions&lt;/code> in the project root and adding the Node.js version that should be used. In my case, the content of this file looked like this:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-text" data-lang="text">&lt;span style="display:flex;">&lt;span>nodejs 16.4.0
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>After creating this file, the &lt;code>dotnet build&lt;/code> command was executed without issues.&lt;/p>
+&lt;p>You can learn more about the &lt;code>.tool-versions&lt;/code> configuration file here: &lt;a href="https://asdf-vm.com/#/core-configuration?id=tool-versions">Configuration (asdf-vm.com)&lt;/a>&lt;/p>
+&lt;hr>
+&lt;p>&lt;strong>And by the way&amp;hellip; 🧐&lt;/strong>&lt;/p>
+&lt;p>&lt;a href="https://www.youtube.com/watch?v=kcNpBNpvyc4&amp;amp;t=258s&amp;amp;ab_channel=TomSkaTomSkaVerified">asdf&lt;/a> is also the name of a legendary series of animated short films by TomSka.&lt;/p>
+&lt;p>&lt;img src="https://manualbashing.github.io/static/asdf.gif" alt="">&lt;/p></description></item></channel></rss>
