@@ -39,5 +39,5 @@ The end-of-line character is not only added by `echo`. Using the  `<<<` redirect
 
 --- 
 
-**And by the way... 🧐**
+**🧐 And because it can't be mentioned often enough:** "Base64 is an encoding, [not an encryption](https://base64.guru/blog/base64-encryption-is-a-lie)".
 ![](/static/base64.jpg)
