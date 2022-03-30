@@ -2,3 +2,7 @@
 	path = themes/even
 	url = https://github.com/olOwOlo/hugo-theme-even
 	branch = master
+[submodule "themes/yinyang"]
+	path = themes/yinyang
+	url = git@github.com:joway/hugo-theme-yinyang.git
+	branch = master
