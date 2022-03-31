@@ -1,0 +1,7 @@
+.header-title {
+        
+ background-image:url('/static/terminal.png'); background-size: 2.7em; background-repeat: no-repeat; 
+}
+.header-title a {
+padding-left: 3em;
+}

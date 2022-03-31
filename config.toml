@@ -36,6 +36,7 @@ headTitle = "ManualBashing"
 disqus = "manualbashing" # disqus account name
 #extraHead = '<script async src="https://www.googletagmanager.com/gtag/js?id=UA-xxx"></script>'
 twitterCards = true
+extraCSSFiles = ["/css/custom.css"]
 
 [[params.socials]]
 name = "About"
@@ -51,5 +52,5 @@ name = "RSS"
 link = "/index.xml"
 
 # extraCSSFiles = ["css/foo.css", "css/bar.css"]
-extraCSSFiles = []
+custom_css =  ["css/custom.css"]
 
