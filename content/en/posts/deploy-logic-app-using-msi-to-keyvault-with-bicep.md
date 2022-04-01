@@ -11,6 +11,11 @@ tags:
 
 It is a common (and good) practice to use an [Azure Key Vault](https://docs.microsoft.com/en-us/azure/key-vault/) to store any secrets that might be needed when building integrations or fooling around with [Azure Logic Apps](https://docs.microsoft.com/en-us/azure/logic-apps/).
 
+
+Not all connectors support MSI: [Secure access and data - Azure Logic Apps | Microsoft Docs](https://docs.microsoft.com/en-us/azure/logic-apps/logic-apps-securing-a-logic-app?tabs=azure-portal#authentication-types-supported-triggers-actions)
+
+In individual cases it might be sensible to use the HTTP connector instead. (Azure Log Analytics)
+
 ## Access a Key Vault from a Logic App
 
 ### Using an user account to access a Key Vault
@@ -44,10 +49,13 @@ resource logicApp 'Microsoft.Logic/workflows@2019-05-01' = {
 }
 ```
 
+You might recieve a warning from the bicep extension, that the property is not supported. This can be ignored with adding `#disable-next-line BCP187` to the preceding line.
+
 The connection parameter within the logic app looks like this:
 
 ```json
 keyvault: {
+  id: subscriptionResourceId('Microsoft.Web/locations/managedApis', location, 'keyvault')
   connectionId: keyvaultConnection.id
   connectionName: keyvaultConnection.name
   connectionProperties: {
@@ -55,12 +63,30 @@ keyvault: {
       type: 'ManagedServiceIdentity'
     }
   }
-  id: subscriptionResourceId('Microsoft.Web/locations/managedApis', location, 'keyvault')
 }
 ```
 
 This requires an extra connection object:
 
 ```json
+resource keyvaultConnection 'Microsoft.Web/connections@2016-06-01' = {
+  name: 'keyvault'
+  location: location
+  properties: {
+    displayName: 'keyvault'
+#disable-next-line BCP037
+    parameterValueType: 'Alternative'
+#disable-next-line BCP037
+    alternativeParameterValues: {
+      vaultName: keyVaultName
+    }
+    api: {
+      name: 'keyvault'
+      displayName: 'keyvault'
+      id: subscriptionResourceId('Microsoft.Web/locations/managedApis', location, 'keyvault')
+      type: 'Microsoft.Web/locations/managedApis'
+    }
+  }
+}
 
 ```
