@@ -46,7 +46,7 @@ name = "Github"
 link = "https://github.com/manualbashing"
 [[params.socials]]
 name = "Twitter"
-link = "https:/twitter.com/manualbashing"
+link = "https://twitter.com/manualbashing"
 [[params.socials]]
 name = "RSS"
 link = "/index.xml"
