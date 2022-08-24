@@ -90,3 +90,27 @@ resource keyvaultConnection 'Microsoft.Web/connections@2016-06-01' = {
 }
 
 ```
+
+
+
+```json
+resource accessPolicy 'Microsoft.KeyVault/vaults/accessPolicies@2021-11-01-preview' = {
+  name: 'add'
+  parent: keyVault
+  properties: {
+    accessPolicies: [
+      {
+        objectId: reference('${logicAppDailyTrigger.id}/providers/Microsoft.ManagedIdentity/Identities/default', '2018-11-30').principalId
+        permissions: {
+          secrets: [
+            'get'
+            'list'
+          ]
+        }
+        tenantId: subscription().tenantId
+      }
+    ]
+  }
+}
+
+```

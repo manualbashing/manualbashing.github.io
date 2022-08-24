@@ -30,16 +30,11 @@ These are all valid approaches in the right context and I want to deal with them
 - allows not only the execution of imperative scripts but also the use of a cloud-config file that uses a descriptive approach.
 - Supported with azure cli and ARM/bicep templates
 
-
-
 [Overview of cloud-init support for Linux VMs in Azure - Azure Virtual Machines | Microsoft Docs](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/using-cloud-init)
 
 ## Passing the cloud-init data to ARM/bicep
 
-
-
 [Custom Data and Cloud-Init on Microsoft Azure | Azure Blog and Updates | Microsoft Azure](https://azure.microsoft.com/en-us/blog/custom-data-and-cloud-init-on-windows-azure/)
-
 
 
 ```json
@@ -83,7 +78,6 @@ When do you want to do that?
 - In bash use `\n` 
 - In powershell `` `n``
 - More save to convert to base64 outside of the template?
-
 
 ## Pass in the reference to a cloud-init file
 
