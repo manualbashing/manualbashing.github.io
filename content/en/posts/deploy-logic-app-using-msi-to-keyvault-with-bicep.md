@@ -100,7 +100,7 @@ resource accessPolicy 'Microsoft.KeyVault/vaults/accessPolicies@2021-11-01-previ
   properties: {
     accessPolicies: [
       {
-        objectId: reference('${logicAppDailyTrigger.id}/providers/Microsoft.ManagedIdentity/Identities/default', '2018-11-30').principalId
+        objectId: logicApp.identity.principalId
         permissions: {
           secrets: [
             'get'
