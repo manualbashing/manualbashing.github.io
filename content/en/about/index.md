@@ -6,15 +6,10 @@ date: 2017-08-20
 
 ![](/static/profile.png)
 
-Hi! My name is Manuel. 
 
-I currently work as an Application Developer and DevOps Engineer at [abtis GmbH](https://abtis.de) in Pforzheim, Germany.
 
-This blog is (mostly) dedicated to technical topics topics that I deal with professionally, like:
+Hi there, I'm Manuel. I currently work as an Application Developer, Cloud Solution Architect and DevOps Engineer at [abtis GmbH](https://abtis.de) in Pforzheim, Germany. 
 
-- PowerShell
-- Infrastructure as Code
-- Microsoft Azure
-- Kubernetes
+This blog is my irregularly updated public notebook of bits and pieces of knowledge that I find interesting or useful in the work that I do.
 
-If you like what I am doing here, follow me on [twitter](https://twitter.com/manualbashing) and let me know!
+You can find me also on [Twitter](https://twitter.com/manualbashing).
