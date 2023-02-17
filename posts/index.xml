@@ -206,7 +206,15 @@
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#666">0.6&lt;/span>.&lt;span style="color:#666">0&lt;/span>-preview
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#666">0.50&lt;/span>.0
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#666">1.0&lt;/span>.0
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>How to restore or purge a soft-deleted Azure API management service instance</title><link>https://manualbashing.github.io/posts/soft-deleted-apim/</link><pubDate>Thu, 10 Feb 2022 00:00:00 +0000</pubDate><guid>https://manualbashing.github.io/posts/soft-deleted-apim/</guid><description>&lt;p>Starting with REST API version, &lt;code>2020-06-01-preview&lt;/code> , Microsoft introduced the soft-delete feature to API Management service (APIM) (See: &lt;a href="https://docs.microsoft.com/en-us/azure/api-management/soft-delete">Azure API Management soft-delete (preview) | Microsoft Docs&lt;/a>)&lt;/p>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>How to restore or purge a soft-deleted Azure API management service instance</title><link>https://manualbashing.github.io/posts/soft-deleted-apim/</link><pubDate>Thu, 10 Feb 2022 00:00:00 +0000</pubDate><guid>https://manualbashing.github.io/posts/soft-deleted-apim/</guid><description>&lt;blockquote>
+&lt;p>&lt;strong>Edit 2023-02-17&lt;/strong>: The approach described below is not necessary anymore. Current versions of &lt;em>azure CLI&lt;/em> (f.e. 2.45.0+) provide commands to identify and remove soft deleted apim instances:&lt;/p>
+&lt;ul>
+&lt;li>List: &lt;code>az apim deletedservice list&lt;/code>&lt;/li>
+&lt;li>Remove: &lt;code>az apim deletedservice purge --service-name &amp;quot;{name}&amp;quot; -l {location}&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>See here for more information: &lt;a href="https://learn.microsoft.com/en-us/cli/azure/apim/deletedservice?view=azure-cli-latest">az apim deletedservice&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;p>Starting with REST API version, &lt;code>2020-06-01-preview&lt;/code> , Microsoft introduced the soft-delete feature to API Management service (APIM) (See: &lt;a href="https://docs.microsoft.com/en-us/azure/api-management/soft-delete">Azure API Management soft-delete (preview) | Microsoft Docs&lt;/a>)&lt;/p>
 &lt;p>Deleting an APIM using the REST API version &lt;code>2020-06-01-preview&lt;/code> or higher will not obliterate the service but put it into the soft-delete state. It can be restored or purged (deleted forever) from this state. If nothing is done, the APIM will purge itself after a specific time.&lt;/p>
 &lt;p>&lt;img src="https://manualbashing.github.io/static/apim-meme.jpg" alt="">&lt;/p>
 &lt;p>No need to mention that this is a valuable feature, but it has downsides too, that have caused people headaches: &lt;a href="https://github.com/Azure/azure-cli/issues/16138">APIM gets stuck in soft-delete state · Issue #16138 · Azure/azure-cli (github.com)&lt;/a>&lt;/p>
