@@ -9,7 +9,7 @@ tags:
 
 Azure Sentinel is Microsoft's *Security Information and Event Management* (SIEM) tool, that helps to identify security threats and to respond quickly when they occur.  One could say that it is an organization's enhanced ears and eyes, like.. you know:
 
-[![The Sentinel](static/the-sentinel.png)](https://en.wikipedia.org/wiki/The_Sentinel_(TV_series))
+[![The Sentinel](/static/the-sentinel.png)](https://en.wikipedia.org/wiki/The_Sentinel_(TV_series))
 
 Sentinel supports so called watchlists. Watchlists are csv files, that add custom information to the assets that you want to monitor closely. 
 
@@ -26,7 +26,9 @@ There is an API method, that allows us to list the contents of the Sentinel watc
 The only thing we need to do is to translate this output into the schema of the CSV files that Sentinel supports. This can be done with the following PowerShell cmdlet. 
 
 {{< gist manualbashing d52f7a74e03a2942628caa45fe3c8f65 >}}
-[Export-SentinelWatchlist](https://gist.github.com/manualbashing/d52f7a74e03a2942628caa45fe3c8f65)
+
+[Export-SentinelWatchlist.ps1](https://gist.github.com/manualbashing/d52f7a74e03a2942628caa45fe3c8f65)
+
 To run this cmdlet the following requirements need to be met:
 
 - It needs to be run in PowerShell Core
