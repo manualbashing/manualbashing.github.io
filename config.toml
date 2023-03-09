@@ -34,7 +34,7 @@ DefaultContentLanguage = "en"
 mainSections = ["posts"]
 headTitle = "ManualBashing"
 disqus = "manualbashing" # disqus account name
-#extraHead = '<script async src="https://www.googletagmanager.com/gtag/js?id=UA-xxx"></script>'
+extraHead = '<link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">'
 twitterCards = true
 extraCSSFiles = ["/css/custom.css"]
 
