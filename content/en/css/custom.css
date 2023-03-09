@@ -2,6 +2,16 @@ body {
   font-family: Merriweather, serif;
 }
 
+.post-title,
+.posts-title,
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: Bree serif, sans-serif;
+}
+
 .header-title {
   background-image: url("/static/terminal.png");
   background-size: 2.7em;
