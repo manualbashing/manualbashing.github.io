@@ -28,23 +28,8 @@ h5 {
 }
 
 blockquote {
-  font-weight: 100;
-  font-size: 0.7rem;
-  line-height: 1.4;
-  position: relative;
-  margin: 0;
-  padding: 0.5rem;
-}
-
-blockquote:before {
-  position: absolute;
-  color: #f1efe6;
-  font-size: 8rem;
-  width: 4rem;
-  height: 4rem;
-}
-
-blockquote:before {
-  content: ">";
-  left: -6rem;
+  font-size: 1rem;  
+  margin: 1rem;
+  padding: 1rem;
+  background-color: antiquewhite;
 }
