@@ -33,3 +33,8 @@ blockquote {
   padding: 1rem;
   background-color: antiquewhite;
 }
+
+pre {
+    margin: 1rem;
+    padding: 1rem;
+}

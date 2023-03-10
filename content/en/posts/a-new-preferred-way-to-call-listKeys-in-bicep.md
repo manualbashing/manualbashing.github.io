@@ -26,6 +26,8 @@ So I tried my best guess as to what the linter tried to tell me and I got lucky:
 logAnalyticsWorkspace.listKeys().primarySharedKey
 ```
 
+[primarySharedKeyNew.bicep](https://gist.github.com/manualbashing/f7e6a388e4089f93063232c2927bb8e4)
+
 The linter warning disappeared and my deployment continued to work just fine.
 
 This syntax is indeed easier to read. I had no idea, that it was possible to use methods on symbolic references. 
