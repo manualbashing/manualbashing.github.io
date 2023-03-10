@@ -1,6 +1,6 @@
 ---
 title: "A new preferred way to call listKeys() in bicep"
-date: 2023-03-1011:45:00+01:00
+date: 2023-03-10T11:45:00+01:00
 tags: 
  - InfrastructureAsCode
  - bicep
