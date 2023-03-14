@@ -1,6 +1,6 @@
 baseURL = "https://manualbashing.github.io/"
 languageCode = "en-us"
-title = "Manual&#8203;Bashing"
+title = "ManualBashing"
 theme = "yinyang"
 DefaultContentLanguage = "en"
 
