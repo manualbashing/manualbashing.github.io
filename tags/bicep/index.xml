@@ -12,5 +12,6 @@
 &lt;p>As a workaround queries to a Log Analytics Workspace can also be send directly to the &lt;a href="https://docs.microsoft.com/en-us/rest/api/loganalytics/">Azure REST API&lt;/a>, as the built-in HTTP connector in Logic Apps supports Managed Identities.&lt;/p>
 &lt;p>&lt;img src="https://manualbashing.github.io/static/logicapp-workspace-msi.png" alt="">&lt;/p>
 &lt;blockquote>
-&lt;p>⌨️ I have added a minimal example to my bicep-snippets repository: &lt;a href="https://github.com/manualbashing/bicep-snippets/tree/mother/logicapp-msi-workspace">bicep-snippets/logicapp-msi-workspace at mother · manualbashing/bicep-snippets (github.com)&lt;/a>&lt;/p>
+&lt;p>⌨️ &lt;strong>Example&lt;/strong>&lt;/p>
+&lt;p>I have added a minimal example to my bicep-snippets repository: &lt;a href="https://github.com/manualbashing/bicep-snippets/tree/mother/logicapp-msi-workspace">bicep-snippets/logicapp-msi-workspace at mother · manualbashing/bicep-snippets (github.com)&lt;/a>&lt;/p>
 &lt;/blockquote></description></item></channel></rss>
