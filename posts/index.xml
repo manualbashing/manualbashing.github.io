@@ -1,11 +1,116 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on ManualBashing</title><link>https://manualbashing.github.io/posts/</link><description>Recent content in Posts on ManualBashing</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 13 Mar 2023 12:31:45 +0000</lastBuildDate><atom:link href="https://manualbashing.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Get distinct values from array in Logic Apps and Power Automate</title><link>https://manualbashing.github.io/posts/get-distinct-values-from-array-in-logic-apps-and-power-automate/</link><pubDate>Mon, 13 Mar 2023 12:31:45 +0000</pubDate><guid>https://manualbashing.github.io/posts/get-distinct-values-from-array-in-logic-apps-and-power-automate/</guid><description>&lt;p>It is a fairly common task to get only distinct values from an array. That means only those values, that are not duplicates.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on ManualBashing</title><link>https://manualbashing.github.io/posts/</link><description>Recent content in Posts on ManualBashing</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 14 Mar 2023 14:24:01 +0000</lastBuildDate><atom:link href="https://manualbashing.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Transform your data with XPath in Logic Apps and Power Automate</title><link>https://manualbashing.github.io/posts/transform-your-data-with-xpath-in-logic-apps-and-power-automate/</link><pubDate>Tue, 14 Mar 2023 14:24:01 +0000</pubDate><guid>https://manualbashing.github.io/posts/transform-your-data-with-xpath-in-logic-apps-and-power-automate/</guid><description>&lt;p>Imagine you are writing a Logic App or a Power Automate flow and you want to transfrom the following data structure:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-json" data-lang="json">&lt;span style="display:flex;">&lt;span>{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;#34;books&amp;#34;&lt;/span>: {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;#34;book&amp;#34;&lt;/span>: [
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;#34;title&amp;#34;&lt;/span>: &lt;span style="color:#b44">&amp;#34;Bullshit Jobs: A Theory&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;#34;author&amp;#34;&lt;/span>: &lt;span style="color:#b44">&amp;#34;David Graeber&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> },
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;#34;title&amp;#34;&lt;/span>: &lt;span style="color:#b44">&amp;#34;Fragments of an Anarchist Anthropology (Paradigm)&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;#34;author&amp;#34;&lt;/span>: &lt;span style="color:#b44">&amp;#34;David Graeber&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> },
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;#34;title&amp;#34;&lt;/span>: &lt;span style="color:#b44">&amp;#34;In Praise of Idleness&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;#34;author&amp;#34;&lt;/span>: &lt;span style="color:#b44">&amp;#34;Bertrand Russell&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>into something like this:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-json" data-lang="json">&lt;span style="display:flex;">&lt;span>[
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;#34;author&amp;#34;&lt;/span>: &lt;span style="color:#b44">&amp;#34;David Graeber&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;#34;books&amp;#34;&lt;/span>: [
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#b44">&amp;#34;Bullshit Jobs: A Theory&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#b44">&amp;#34;Fragments of an Anarchist Anthropology (Paradigm)&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> },
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;#34;author&amp;#34;&lt;/span>: &lt;span style="color:#b44">&amp;#34;Bertrand Russell&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;#34;books&amp;#34;&lt;/span>: [
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#b44">&amp;#34;In Praise of Idleness&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>What type of transformation is done here? For each author we need to create an array of all the author&amp;rsquo;s books. A straight forward approach would be to use the &lt;a href="https://learn.microsoft.com/en-us/azure/logic-apps/logic-apps-perform-data-operations?tabs=consumption#filter-array-action">filter array action&lt;/a>.&lt;/p>
+&lt;p>But there are two problems here:&lt;/p>
+&lt;ol>
+&lt;li>How do we know which authors exist in the list and how do we deal with authors (like &amp;ldquo;David Graeber&amp;rdquo;) that appears several times in the list?&lt;/li>
+&lt;li>Even after filtering the list down to books by &amp;ldquo;David Graeber&amp;rdquo;, how do we manage to merge the resulting book titles into a single array?&lt;/li>
+&lt;/ol>
+&lt;p>Tasks like this are not uncommon but often quite tricky to solve without using several for-each loops and conditions, which would inflate the workflow unnecessarily and make it hard to read.&lt;/p>
+&lt;p>This is where XPath comes into the picture. XPath is a language used to navigate and query XML documents. In simple terms, XML documents are like trees, where each element is a node in the tree. XPath allows you to specify a path through this tree to locate specific nodes or groups of nodes.&lt;/p>
+&lt;p>Let&amp;rsquo;s take our example above. Converted to xml, it would look like this:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-xml" data-lang="xml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#080">&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34; ?&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">&amp;lt;books&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;lt;book&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;lt;title&amp;gt;&lt;/span>Bullshit Jobs: A Theory&lt;span style="color:#008000;font-weight:bold">&amp;lt;/title&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;lt;author&amp;gt;&lt;/span>David Graeber&lt;span style="color:#008000;font-weight:bold">&amp;lt;/author&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;lt;/book&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;lt;book&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;lt;title&amp;gt;&lt;/span>Fragments of an Anarchist Anthropology (Paradigm)&lt;span style="color:#008000;font-weight:bold">&amp;lt;/title&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;lt;author&amp;gt;&lt;/span>David Graeber&lt;span style="color:#008000;font-weight:bold">&amp;lt;/author&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;lt;/book&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;lt;book&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;lt;title&amp;gt;&lt;/span>In Praise of Idleness&lt;span style="color:#008000;font-weight:bold">&amp;lt;/title&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;lt;author&amp;gt;&lt;/span>Bertrand Russell&lt;span style="color:#008000;font-weight:bold">&amp;lt;/author&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;lt;/book&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">&amp;lt;/books&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Using XPath, you can select nodes from this document based on their element name, or position in the document. And we can use this to solve the problems, stated above:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>//author/text()&lt;/code>: Selects the text value of all &lt;code>author&lt;/code> elements that appear anywhere in the xml document.&lt;/li>
+&lt;li>&lt;code>//author[text()=&amp;quot;David Graeber&amp;quot;]/following-sibling::title/text()&lt;/code>: This first selects the &lt;code>author&lt;/code> element that has &lt;code>&amp;quot;David Graeber&amp;quot;&lt;/code> as a text value. From this node it determines the text value of the the &lt;code>title&lt;/code> element, that is its immediate sibling.&lt;/li>
+&lt;/ul>
+&lt;p>For more examples on XPath queries that can be used in Logic Apps and Power Automate see: &lt;a href="https://learn.microsoft.com/en-us/azure/logic-apps/workflow-definition-language-functions-reference#xpath">xpath() - Reference guide for expression functions - Azure Logic Apps&lt;/a>&lt;/p>
+&lt;p>Let&amp;rsquo;s see now, how these two XPath queries help us to transform the data in our example.&lt;/p>
+&lt;h2 id="transforming-json-data-to-xml">Transforming JSON data to XML&lt;/h2>
+&lt;p>XPath only works on XML documents. In order to use XPath we will need to transform our JSON objects to XML first. This can be done using the &lt;code>xml()&lt;/code> expression function, but there is a caveat:&lt;/p>
+&lt;blockquote>
+&lt;p>⚠️ XML documents must have a single root element.&lt;/p>
+&lt;/blockquote>
+&lt;p>This means, that it is not possible to transform &lt;code>{&amp;quot;foo&amp;quot;:[ &amp;quot;A&amp;quot;,&amp;quot;B&amp;quot;,&amp;quot;C&amp;quot;]}&lt;/code> into xml, as this would be translated as:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-xml" data-lang="xml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">&amp;lt;foo&amp;gt;&lt;/span>A&lt;span style="color:#008000;font-weight:bold">&amp;lt;/foo&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">&amp;lt;foo&amp;gt;&lt;/span>B&lt;span style="color:#008000;font-weight:bold">&amp;lt;/foo&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">&amp;lt;foo&amp;gt;&lt;/span>C&lt;span style="color:#008000;font-weight:bold">&amp;lt;/foo&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Instead we have to provide a single root element to the data structure before attempting the conversion to XML: &lt;code>{&amp;quot;bar&amp;quot;:{&amp;quot;foo&amp;quot;:[ &amp;quot;A&amp;quot;,&amp;quot;B&amp;quot;,&amp;quot;C&amp;quot;]}}&lt;/code>. This would translate into valid XML:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-xml" data-lang="xml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">&amp;lt;bar&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;lt;foo&amp;gt;&lt;/span>A&lt;span style="color:#008000;font-weight:bold">&amp;lt;/foo&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;lt;foo&amp;gt;&lt;/span>B&lt;span style="color:#008000;font-weight:bold">&amp;lt;/foo&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;lt;foo&amp;gt;&lt;/span>C&lt;span style="color:#008000;font-weight:bold">&amp;lt;/foo&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">&amp;lt;/bar&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Accordingly in a Logic App we would do it like this:&lt;/p>
+&lt;p>&lt;img src="https://manualbashing.github.io/static/transform-xml.png" alt="">&lt;/p>
+&lt;p>The actual conversion to XML is then done in a compose action with the following expression:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>xml(outputs(&lt;span style="color:#b44">&amp;#39;Compose_-_provide_root_element_to_books_array_for_xml_transformation&amp;#39;&lt;/span>))
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The output of this last compose action, is what we will be working with, when applying the XPath.&lt;/p>
+&lt;h2 id="getting-a-list-of-authors-with-distinct-values">Getting a list of authors with distinct values&lt;/h2>
+&lt;p>The following XPath query can be used to get a list of all authors from the XML in our example: &lt;code>//author/text()&lt;/code>. To apply the XPath the expression function &lt;code>xpath()&lt;/code> is used:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>xpath(outputs(&lt;span style="color:#b44">&amp;#39;Compose_-_transform_books_array_to_xml&amp;#39;&lt;/span>),&lt;span style=""> &lt;/span>&lt;span style="color:#b44">&amp;#39;//author/text()&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>This will result in a string array with all author names, but this list does not yet contain distinct values, which means that &amp;ldquo;David Graeber&amp;rdquo; would appear two times. While XPath offers functions that would allow to return distinct values, these functions are unfortunately not supported in Logic Apps and Power Automate.&lt;/p>
+&lt;p>Instead we can use the &lt;code>union()&lt;/code> expression function. A trick, that I have explained earlier on this blog: &lt;a href="https://manualbashing.github.io/posts/get-distinct-values-from-array-in-logic-apps-and-power-automate/">Get distinct values from array in Logic Apps and Power Automate (manualbashing.github.io)&lt;/a>.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>union(xpath(outputs(&lt;span style="color:#b44">&amp;#39;Compose_-_transform_books_array_to_xml&amp;#39;&lt;/span>),&lt;span style=""> &lt;/span>&lt;span style="color:#b44">&amp;#39;//author/text()&amp;#39;&lt;/span>),&lt;span style=""> &lt;/span>json(&lt;span style="color:#b44">&amp;#39;[]&amp;#39;&lt;/span>))
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>This will result in a list of authors. in which each author appears only once.&lt;/p>
+&lt;p>&lt;img src="https://manualbashing.github.io/static/distinct-values.png" alt="distinct values">&lt;/p>
+&lt;h2 id="get-an-array-of-book-titles-by-author">Get an array of book titles by author&lt;/h2>
+&lt;p>Now that we have list of all authors, a single for each loop will be enough to transform the data in the way, that we want.&lt;/p>
+&lt;p>First we interate over the list of authors to prepare an XPath query that will return the titles of all books of the current author:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#666">//&lt;/span>author[text()&lt;span style="color:#666">=&lt;/span>&lt;span style="color:#b44">&amp;#34;@{item()}&amp;#34;&lt;/span>]&lt;span style="color:#666">/&lt;/span>following&lt;span style="color:#666">-&lt;/span>sibling::title&lt;span style="color:#666">/&lt;/span>text()
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>This first selects the &lt;code>author&lt;/code> element that has the current author&amp;rsquo;s name as a text value. From this node it determines the text value of the the &lt;code>title&lt;/code> element, that is its immediate sibling. The current author&amp;rsquo;s name is returned by the expression &lt;code>item()&lt;/code>, which refers to the current element in the for each loop.&lt;/p>
+&lt;p>To execute the XPath query we use another compose step and add the following expression:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>xpath(outputs(&lt;span style="color:#b44">&amp;#39;Compose_-_transform_books_array_to_xml&amp;#39;&lt;/span>),&lt;span style=""> &lt;/span>outputs(&lt;span style="color:#b44">&amp;#39;Compose_-_XPath_expression&amp;#39;&lt;/span>))
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The result we can then arrange into a new object and add this to an array variable.&lt;/p>
+&lt;p>&lt;img src="books-by-author.png" alt="Books by author">&lt;/p>
+&lt;p>The result of our efforts looks like this:&lt;/p>
+&lt;p>&lt;img src="static/transformation-result.png" alt="transformation result">&lt;/p>
+&lt;p>To see this all in action, you can deploy a minimal example that I have added to my bicep-snippets repository: &lt;a href="https://github.com/manualbashing/bicep-snippets/tree/mother/logicapp-xpath">bicep-snippets/logicapp-msi-workspace at mother · manualbashing/bicep-snippets (github.com)&lt;/a>&lt;/p></description></item><item><title>Get distinct values from array in Logic Apps and Power Automate</title><link>https://manualbashing.github.io/posts/get-distinct-values-from-array-in-logic-apps-and-power-automate/</link><pubDate>Mon, 13 Mar 2023 12:31:45 +0000</pubDate><guid>https://manualbashing.github.io/posts/get-distinct-values-from-array-in-logic-apps-and-power-automate/</guid><description>&lt;p>It is a fairly common task to get only distinct values from an array. That means only those values, that are not duplicates.&lt;/p>
 &lt;p>Imagine you have the following array:&lt;/p>
 &lt;p>&lt;img src="https://manualbashing.github.io/static/distinct-values-myArray.png" alt="distinct-values-myArray">&lt;/p>
 &lt;p>If you want only distinct values from this array, that means you want &lt;code>[ &amp;quot;A&amp;quot;, &amp;quot;B&amp;quot;, &amp;quot;C&amp;quot;, &amp;quot;D&amp;quot;]&lt;/code> without the duplicate &lt;code>&amp;quot;A&amp;quot;&lt;/code>.&lt;/p>
 &lt;p>As you can guess from the previous screenshot, this can be done with the &lt;code>union()&lt;/code> function, that is available in both Logic Apps and Power Automate. The actual purpose of this function is to create a union between two arrays or objects:&lt;/p>
 &lt;blockquote>
 &lt;p>Returns a single array or object with all the elements that are in either array or object passed to this function.&lt;/p>
-&lt;p>Source: &lt;a href="https://learn.microsoft.com/en-us/azure/logic-apps/workflow-definition-language-functions-reference#union">union() - Reference guide for expression functions - Azure Logic Apps&lt;/a>&lt;/p>
+&lt;p>👉 &lt;a href="https://learn.microsoft.com/en-us/azure/logic-apps/workflow-definition-language-functions-reference#union">union() - Reference guide for expression functions - Azure Logic Apps&lt;/a>&lt;/p>
 &lt;/blockquote>
 &lt;p>A side effect of this function is, that each element is returned only once. That means creating a union of an array either with itself or with an empty array will result in an array that contains only distinct values.&lt;/p>
 &lt;p>The expression in our example would be:&lt;/p>
