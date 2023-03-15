@@ -18,7 +18,7 @@ As you can guess from the previous screenshot, this can be done with the `union(
 
 > Returns a single array or object with all the elements that are in either array or object passed to this function. 
 > 
-> Source: [union() - Reference guide for expression functions - Azure Logic Apps](https://learn.microsoft.com/en-us/azure/logic-apps/workflow-definition-language-functions-reference#union)
+> 👉 [union() - Reference guide for expression functions - Azure Logic Apps](https://learn.microsoft.com/en-us/azure/logic-apps/workflow-definition-language-functions-reference#union)
 
 A side effect of this function is, that each element is returned only once. That means creating a union of an array either with itself or with an empty array will result in an array that contains only distinct values.
 
