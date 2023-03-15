@@ -31,7 +31,8 @@
 &lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-text" data-lang="text">&lt;span style="display:flex;">&lt;span>nodejs 16.4.0
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>After creating this file, the &lt;code>dotnet build&lt;/code> command was executed without issues.&lt;/p>
 &lt;p>You can learn more about the &lt;code>.tool-versions&lt;/code> configuration file here: &lt;a href="https://asdf-vm.com/#/core-configuration?id=tool-versions">Configuration (asdf-vm.com)&lt;/a>&lt;/p>
-&lt;hr>
-&lt;p>&lt;strong>And by the way&amp;hellip; 🧐&lt;/strong>&lt;/p>
-&lt;p>&lt;a href="https://www.youtube.com/watch?v=kcNpBNpvyc4&amp;amp;t=258s&amp;amp;ab_channel=TomSkaTomSkaVerified">asdf&lt;/a> is also the name of a legendary series of animated short films by TomSka.&lt;/p>
-&lt;p>&lt;img src="https://manualbashing.github.io/static/asdf.gif" alt="">&lt;/p></description></item></channel></rss>
+&lt;blockquote>
+&lt;p>🧐&lt;strong>And by the way&lt;/strong>
+&lt;a href="https://www.youtube.com/watch?v=kcNpBNpvyc4&amp;amp;t=258s&amp;amp;ab_channel=TomSkaTomSkaVerified">asdf&lt;/a> is also the name of a legendary series of animated short films by TomSka.
+&lt;img src="https://manualbashing.github.io/static/asdf.gif" alt="asdf pointless">&lt;/p>
+&lt;/blockquote></description></item></channel></rss>
