@@ -173,4 +173,4 @@ The result of our efforts looks like this:
 
 ![transformation result](/static/transformation-result.png)
 
-To see this all in action, you can deploy a minimal example that I have added to my bicep-snippets repository: [bicep-snippets/logicapp-msi-workspace at mother · manualbashing/bicep-snippets (github.com)](https://github.com/manualbashing/bicep-snippets/tree/mother/logicapp-xpath)
+> ⌨️ To see this all in action, you can deploy a minimal example that I have added to my bicep-snippets repository: [bicep-snippets/logicapp-msi-workspace at mother · manualbashing/bicep-snippets (github.com)](https://github.com/manualbashing/bicep-snippets/tree/mother/logicapp-xpath)
