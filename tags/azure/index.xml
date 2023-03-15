@@ -100,9 +100,9 @@
 &lt;p>To execute the XPath query we use another compose step and add the following expression:&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>xpath(outputs(&lt;span style="color:#b44">&amp;#39;Compose_-_transform_books_array_to_xml&amp;#39;&lt;/span>),&lt;span style=""> &lt;/span>outputs(&lt;span style="color:#b44">&amp;#39;Compose_-_XPath_expression&amp;#39;&lt;/span>))
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The result we can then arrange into a new object and add this to an array variable.&lt;/p>
-&lt;p>&lt;img src="books-by-author.png" alt="Books by author">&lt;/p>
+&lt;p>&lt;img src="https://manualbashing.github.io/static/books-by-author.png" alt="Books by author">&lt;/p>
 &lt;p>The result of our efforts looks like this:&lt;/p>
-&lt;p>&lt;img src="static/transformation-result.png" alt="transformation result">&lt;/p>
+&lt;p>&lt;img src="https://manualbashing.github.io/static/transformation-result.png" alt="transformation result">&lt;/p>
 &lt;p>To see this all in action, you can deploy a minimal example that I have added to my bicep-snippets repository: &lt;a href="https://github.com/manualbashing/bicep-snippets/tree/mother/logicapp-xpath">bicep-snippets/logicapp-msi-workspace at mother · manualbashing/bicep-snippets (github.com)&lt;/a>&lt;/p></description></item><item><title>A new preferred way to call listKeys() in bicep</title><link>https://manualbashing.github.io/posts/a-new-preferred-way-to-call-listkeys-in-bicep/</link><pubDate>Fri, 10 Mar 2023 11:45:00 +0100</pubDate><guid>https://manualbashing.github.io/posts/a-new-preferred-way-to-call-listkeys-in-bicep/</guid><description>&lt;p>After upgrading to &lt;code>Bicep CLI version 0.15.31 (3ba6e06a8d)&lt;/code> I got a linter warning in one of my bicep files:&lt;/p>
 &lt;blockquote>
 &lt;p>Use a resource reference instead of invoking function &amp;ldquo;listKeys&amp;rdquo;. This simplifies the syntax and allows Bicep to better understand your deployment dependency graph.bicep core &lt;a href="https://aka.ms/bicep/linter/use-resource-symbol-reference">https://aka.ms/bicep/linter/use-resource-symbol-reference&lt;/a>&lt;/p>
