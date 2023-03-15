@@ -16,4 +16,6 @@ As a  workaround queries to a Log Analytics Workspace can also be send directly 
 
 ![](/static/logicapp-workspace-msi.png)
 
-> ⌨️ I have added a minimal example to my bicep-snippets repository: [bicep-snippets/logicapp-msi-workspace at mother · manualbashing/bicep-snippets (github.com)](https://github.com/manualbashing/bicep-snippets/tree/mother/logicapp-msi-workspace)
+> ⌨️ **Example**
+> 
+> I have added a minimal example to my bicep-snippets repository: [bicep-snippets/logicapp-msi-workspace at mother · manualbashing/bicep-snippets (github.com)](https://github.com/manualbashing/bicep-snippets/tree/mother/logicapp-msi-workspace)

@@ -58,5 +58,6 @@ After creating this file, the `dotnet build` command was executed without issues
 You can learn more about the `.tool-versions` configuration file here: [Configuration (asdf-vm.com)](https://asdf-vm.com/#/core-configuration?id=tool-versions)
 
 > 🧐**And by the way**
+> 
 > [asdf](https://www.youtube.com/watch?v=kcNpBNpvyc4&t=258s&ab_channel=TomSkaTomSkaVerified) is also the name of a legendary series of animated short films by TomSka.
 > ![asdf pointless](/static/asdf.gif)
