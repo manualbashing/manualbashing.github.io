@@ -167,10 +167,10 @@ xpath(outputs('Compose_-_transform_books_array_to_xml'), outputs('Compose_-_XPa
 
 The result we can then arrange into a new object and add this to an array variable.
 
-![Books by author](books-by-author.png)
+![Books by author](/static/books-by-author.png)
 
 The result of our efforts looks like this:
 
-![transformation result](static/transformation-result.png)
+![transformation result](/static/transformation-result.png)
 
 To see this all in action, you can deploy a minimal example that I have added to my bicep-snippets repository: [bicep-snippets/logicapp-msi-workspace at mother · manualbashing/bicep-snippets (github.com)](https://github.com/manualbashing/bicep-snippets/tree/mother/logicapp-xpath)
