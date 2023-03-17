@@ -17,3 +17,7 @@ hugo.linux
 /.hugo_build.lock
 
 # End of https://www.toptal.com/developers/gitignore/api/hugo
+
+
+# Ignore drafts
+draft*.md
