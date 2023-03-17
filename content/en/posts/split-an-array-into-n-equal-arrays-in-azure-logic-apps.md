@@ -1,6 +1,6 @@
 ---
 title: Split an array into n-equal arrays in Azure Logic Apps
-date: 2023-03-17T12:15:45
+date: 2023-03-17
 draft: false
 tags:
  - LogicApps
