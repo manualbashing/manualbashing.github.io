@@ -137,7 +137,7 @@ paginate = 5
 
   [params.social]
     b-stack-overflow = "https://stackoverflow.com/users/565359/manuel-batsching"
-    c-twitter = "https://twitter.com/manualbashing"
+    c-twitter = "https://nerdculture.de/@mba"
     g-github = "https://github.com/manualbashing"
 
 # See https://gohugo.io/about/hugo-and-gdpr/

@@ -12,4 +12,4 @@ Hi there, I'm Manuel. I currently work as an Application Developer, Cloud Soluti
 
 This blog is my irregularly updated public notebook of bits and pieces of knowledge that I find interesting or useful in the work that I do.
 
-You can find me also on [Twitter](https://twitter.com/manualbashing).
+You can find me also on [Mastodon](hhttps://nerdculture.de/@mba).

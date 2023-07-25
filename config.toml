@@ -45,8 +45,8 @@ link = "/about"
 name = "Github"
 link = "https://github.com/manualbashing"
 [[params.socials]]
-name = "Twitter"
-link = "https://twitter.com/manualbashing"
+name = "Mastodon"
+link = "https://nerdculture.de/@mba"
 [[params.socials]]
 name = "RSS"
 link = "/index.xml"
