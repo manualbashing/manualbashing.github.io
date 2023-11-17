@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ManualBashing</title><link>https://manualbashing.github.io/</link><description>Recent content on ManualBashing</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 17 Nov 2023 13:37:45 +0000</lastBuildDate><atom:link href="https://manualbashing.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Keep your secrets out of your bicep parameters</title><link>https://manualbashing.github.io/posts/keep-your-secrets-out-of-your-bicep-parameters/</link><pubDate>Fri, 17 Nov 2023 13:37:45 +0000</pubDate><guid>https://manualbashing.github.io/posts/keep-your-secrets-out-of-your-bicep-parameters/</guid><description>&lt;p>Imagine the following scenario: We have to deploy an Azure Key Vault that comes already populated with a secret, let&amp;rsquo;s say, some third party&amp;rsquo;s API access key. Our bicep file (&lt;code>azuredeploy.bicep&lt;/code>) could look like this:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-json" data-lang="json">&lt;span style="display:flex;">&lt;span>&lt;span style="">param&lt;/span> &lt;span style="">location&lt;/span> &lt;span style="">string&lt;/span> &lt;span style="">=&lt;/span> &lt;span style="">resourceGroup().location&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="">param&lt;/span> &lt;span style="">tenantId&lt;/span> &lt;span style="">string&lt;/span> &lt;span style="">=&lt;/span> &lt;span style="">tenant().tenantId&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="">@secure()&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="">param&lt;/span> &lt;span style="">keyvaultSecretCatfunValue&lt;/span> &lt;span style="">string&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>param location string &lt;span style="color:#666">=&lt;/span> resourceGroup()&lt;span style="color:#666">.&lt;/span>location
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>param tenantId string &lt;span style="color:#666">=&lt;/span> tenant()&lt;span style="color:#666">.&lt;/span>tenantId
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a2f">@secure&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>param keyvaultSecretCatfunValue string
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="">var&lt;/span> &lt;span style="">name&lt;/span> &lt;span style="">=&lt;/span> &lt;span style="">&amp;#39;kv-$&lt;/span>{&lt;span style="">uniqueString(resourceGroup().id)&lt;/span>}&lt;span style="">&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>var name &lt;span style="color:#666">=&lt;/span> &lt;span style="color:#b44">&amp;#39;kv-${uniqueString(resourceGroup().id)}&amp;#39;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="">resource&lt;/span> &lt;span style="">keyVault&lt;/span> &lt;span style="">&amp;#39;Microsoft.KeyVault/vaults@&lt;/span>&lt;span style="color:#666">2019-09-01&lt;/span>&lt;span style="">&amp;#39;&lt;/span> &lt;span style="">=&lt;/span> {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">name:&lt;/span> &lt;span style="">name&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">location:&lt;/span> &lt;span style="">location&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">properties:&lt;/span> &lt;span style="">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">tenantId:&lt;/span> &lt;span style="">tenantId&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">sku:&lt;/span> &lt;span style="">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">name:&lt;/span> &lt;span style="">&amp;#39;standard&amp;#39;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">family:&lt;/span> &lt;span style="">&amp;#39;A&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>resource keyVault &lt;span style="color:#b44">&amp;#39;Microsoft.KeyVault/vaults@2019-09-01&amp;#39;&lt;/span> &lt;span style="color:#666">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> name: name
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> location: location
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> properties: {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> tenantId: tenantId
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> sku: {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> name: &lt;span style="color:#b44">&amp;#39;standard&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> family: &lt;span style="color:#b44">&amp;#39;A&amp;#39;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">accessPolicies:&lt;/span> []
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="">resource&lt;/span> &lt;span style="">keyvaultSecretCatfun&lt;/span> &lt;span style="">&amp;#39;Microsoft.KeyVault/vaults/secrets@&lt;/span>&lt;span style="color:#666">2019-09-01&lt;/span>&lt;span style="">&amp;#39;&lt;/span> &lt;span style="">=&lt;/span> {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">parent:&lt;/span> &lt;span style="">keyVault&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">name:&lt;/span> &lt;span style="">&amp;#39;Catfun&amp;#39;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">properties:&lt;/span> &lt;span style="">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">value:&lt;/span> &lt;span style="">keyvaultSecretCatfunValue&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> accessPolicies: []
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>resource keyvaultSecretCatfun &lt;span style="color:#b44">&amp;#39;Microsoft.KeyVault/vaults/secrets@2019-09-01&amp;#39;&lt;/span> &lt;span style="color:#666">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parent: keyVault
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> name: &lt;span style="color:#b44">&amp;#39;Catfun&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> properties: {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> value: keyvaultSecretCatfunValue
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>But how to we deploy this to Azure without entering the secret&amp;rsquo;s value every time we call &lt;code>az deployment&lt;/code>?&lt;/p>
 &lt;h2 id="loading-individual-secrets-from-external-files">Loading individual secrets from external files&lt;/h2>
 &lt;p>One trick that worked well for me so far, was to use an external text file, that would be excluded from version control.&lt;/p>
