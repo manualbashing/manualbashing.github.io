@@ -49,7 +49,7 @@ For this to work would create a file `Catfun.secret` that contains the API secre
 
 This secret would then be loaded by the bicep template as the default value for the  `keyvaultSecretCatfunValue` parameter: 
 
-```json
+```python
 @secure()
 #disable-next-line secure-parameter-default
 param keyvaultSecretCatfunValue string = loadTextContent('Catfun.secret')
@@ -57,7 +57,7 @@ param keyvaultSecretCatfunValue string = loadTextContent('Catfun.secret')
 
 (We have to add `#disable-next-line secure-parameter-default`) to ignore the warning, that secure parameters should not use default values. Our scenario is a reasonable exception to this rule.)
 
-![[vscode-secrets-file.png]]
+![Screenshot of vscode showing a gitignore file and the code from the code listing above](static/vscode-secrets-file.png)
 
 ## Loading several secrets from the same file
 
@@ -74,7 +74,7 @@ The content of my `MoreSecrets.json`  file looks like this:
 
 The file can then be parsed using the `loadJsonContent()` function in bicep:
 
-```json
+```python
 param location string = resourceGroup().location
 param tenantId string = tenant().tenantId
 @secure()
@@ -121,4 +121,4 @@ One way I like to do this is by encrypting the secrets using the [OpenPGP extens
 
 This allows me to protect the files that contain the secrets using a private key and passphrase.
 
-![[secrets-gpg-animation.gif]]
+![An animation showing how a encrypted file is decrypted with a passphrase](static/secrets-gpg-animation.gif)
