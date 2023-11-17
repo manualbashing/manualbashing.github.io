@@ -31,11 +31,11 @@
 &lt;p>One trick that worked well for me so far, was to use an external text file, that would be excluded from version control.&lt;/p>
 &lt;p>For this to work would create a file &lt;code>Catfun.secret&lt;/code> that contains the API secret and make sure, that it is excluded from version control via &lt;code>.gitignore&lt;/code>.&lt;/p>
 &lt;p>This secret would then be loaded by the bicep template as the default value for the &lt;code>keyvaultSecretCatfunValue&lt;/code> parameter:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-json" data-lang="json">&lt;span style="display:flex;">&lt;span>&lt;span style="">@secure()&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="">#disable-next-line&lt;/span> &lt;span style="">secure-parameter-default&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="">param&lt;/span> &lt;span style="">keyvaultSecretCatfunValue&lt;/span> &lt;span style="">string&lt;/span> &lt;span style="">=&lt;/span> &lt;span style="">loadTextContent(&amp;#39;Catfun.secret&amp;#39;)&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a2f">@secure&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#080;font-style:italic">#disable-next-line secure-parameter-default&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>param keyvaultSecretCatfunValue string &lt;span style="color:#666">=&lt;/span> loadTextContent(&lt;span style="color:#b44">&amp;#39;Catfun.secret&amp;#39;&lt;/span>)
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>(We have to add &lt;code>#disable-next-line secure-parameter-default&lt;/code>) to ignore the warning, that secure parameters should not use default values. Our scenario is a reasonable exception to this rule.)&lt;/p>
-&lt;p>![[vscode-secrets-file.png]]&lt;/p>
+&lt;p>&lt;img src="static/vscode-secrets-file.png" alt="Screenshot of vscode showing a gitignore file and the code from the code listing above">&lt;/p>
 &lt;h2 id="loading-several-secrets-from-the-same-file">Loading several secrets from the same file&lt;/h2>
 &lt;p>If you need to deploy several secrets in a secure way it is not necessary to create a secret file for each. Instead you can save your secrets in a json file, that can be parsed by bicep.&lt;/p>
 &lt;p>The content of my &lt;code>MoreSecrets.json&lt;/code> file looks like this:&lt;/p>
@@ -44,47 +44,47 @@
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;#34;Fishfun&amp;#34;&lt;/span>: &lt;span style="color:#b44">&amp;#34;TheSameButBetter##!&amp;#34;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The file can then be parsed using the &lt;code>loadJsonContent()&lt;/code> function in bicep:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-json" data-lang="json">&lt;span style="display:flex;">&lt;span>&lt;span style="">param&lt;/span> &lt;span style="">location&lt;/span> &lt;span style="">string&lt;/span> &lt;span style="">=&lt;/span> &lt;span style="">resourceGroup().location&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="">param&lt;/span> &lt;span style="">tenantId&lt;/span> &lt;span style="">string&lt;/span> &lt;span style="">=&lt;/span> &lt;span style="">tenant().tenantId&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="">@secure()&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="">#disable-next-line&lt;/span> &lt;span style="">secure-parameter-default&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="">param&lt;/span> &lt;span style="">secrets&lt;/span> &lt;span style="">object&lt;/span> &lt;span style="">=&lt;/span> &lt;span style="">loadJsonContent(&amp;#39;MoreFun.secret&amp;#39;)&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>param location string &lt;span style="color:#666">=&lt;/span> resourceGroup()&lt;span style="color:#666">.&lt;/span>location
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>param tenantId string &lt;span style="color:#666">=&lt;/span> tenant()&lt;span style="color:#666">.&lt;/span>tenantId
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a2f">@secure&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#080;font-style:italic">#disable-next-line secure-parameter-default&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>param secrets &lt;span style="color:#a2f">object&lt;/span> &lt;span style="color:#666">=&lt;/span> loadJsonContent(&lt;span style="color:#b44">&amp;#39;MoreFun.secret&amp;#39;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="">var&lt;/span> &lt;span style="">name&lt;/span> &lt;span style="">=&lt;/span> &lt;span style="">&amp;#39;kv-$&lt;/span>{&lt;span style="">uniqueString(resourceGroup().id)&lt;/span>}&lt;span style="">&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>var name &lt;span style="color:#666">=&lt;/span> &lt;span style="color:#b44">&amp;#39;kv-${uniqueString(resourceGroup().id)}&amp;#39;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="">resource&lt;/span> &lt;span style="">keyVault&lt;/span> &lt;span style="">&amp;#39;Microsoft.KeyVault/vaults@&lt;/span>&lt;span style="color:#666">2019-09-01&lt;/span>&lt;span style="">&amp;#39;&lt;/span> &lt;span style="">=&lt;/span> {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">name:&lt;/span> &lt;span style="">name&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">location:&lt;/span> &lt;span style="">location&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">properties:&lt;/span> &lt;span style="">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">tenantId:&lt;/span> &lt;span style="">tenantId&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">sku:&lt;/span> &lt;span style="">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">name:&lt;/span> &lt;span style="">&amp;#39;standard&amp;#39;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">family:&lt;/span> &lt;span style="">&amp;#39;A&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>resource keyVault &lt;span style="color:#b44">&amp;#39;Microsoft.KeyVault/vaults@2019-09-01&amp;#39;&lt;/span> &lt;span style="color:#666">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> name: name
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> location: location
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> properties: {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> tenantId: tenantId
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> sku: {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> name: &lt;span style="color:#b44">&amp;#39;standard&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> family: &lt;span style="color:#b44">&amp;#39;A&amp;#39;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">accessPolicies:&lt;/span> []
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="">resource&lt;/span> &lt;span style="">keyvaultSecretCatfun&lt;/span> &lt;span style="">&amp;#39;Microsoft.KeyVault/vaults/secrets@&lt;/span>&lt;span style="color:#666">2019-09-01&lt;/span>&lt;span style="">&amp;#39;&lt;/span> &lt;span style="">=&lt;/span> {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">parent:&lt;/span> &lt;span style="">keyVault&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">name:&lt;/span> &lt;span style="">&amp;#39;Catfun&amp;#39;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">properties:&lt;/span> &lt;span style="">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">value:&lt;/span> &lt;span style="">secrets.Catfun&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> accessPolicies: []
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="">resource&lt;/span> &lt;span style="">keyvaultSecretFishfun&lt;/span> &lt;span style="">&amp;#39;Microsoft.KeyVault/vaults/secrets@&lt;/span>&lt;span style="color:#666">2019-09-01&lt;/span>&lt;span style="">&amp;#39;&lt;/span> &lt;span style="">=&lt;/span> {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">parent:&lt;/span> &lt;span style="">keyVault&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">name:&lt;/span> &lt;span style="">&amp;#39;Fishfun&amp;#39;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">properties:&lt;/span> &lt;span style="">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">value:&lt;/span> &lt;span style="">secrets.Fishfun&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>resource keyvaultSecretCatfun &lt;span style="color:#b44">&amp;#39;Microsoft.KeyVault/vaults/secrets@2019-09-01&amp;#39;&lt;/span> &lt;span style="color:#666">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parent: keyVault
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> name: &lt;span style="color:#b44">&amp;#39;Catfun&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> properties: {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> value: secrets&lt;span style="color:#666">.&lt;/span>Catfun
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>resource keyvaultSecretFishfun &lt;span style="color:#b44">&amp;#39;Microsoft.KeyVault/vaults/secrets@2019-09-01&amp;#39;&lt;/span> &lt;span style="color:#666">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parent: keyVault
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> name: &lt;span style="color:#b44">&amp;#39;Fishfun&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> properties: {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> value: secrets&lt;span style="color:#666">.&lt;/span>Fishfun
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="protect-your-local-secret-files">Protect your local secret files&lt;/h2>
 &lt;p>So far we have managed to keep our secrets out of version control, but they are still laying around in plain text files, which is not what we want for any type of secret.&lt;/p>
 &lt;p>One way I like to do this is by encrypting the secrets using the &lt;a href="https://marketplace.visualstudio.com/items?itemName=ugosan.vscode-openpgp">OpenPGP extension&lt;/a> in vscode (&lt;code>ugosan.vscode-openpgp&lt;/code>).&lt;/p>
 &lt;p>This allows me to protect the files that contain the secrets using a private key and passphrase.&lt;/p>
-&lt;p>![[secrets-gpg-animation.gif]]&lt;/p></description></item><item><title>A new preferred way to call listKeys() in bicep</title><link>https://manualbashing.github.io/posts/a-new-preferred-way-to-call-listkeys-in-bicep/</link><pubDate>Fri, 10 Mar 2023 11:45:00 +0100</pubDate><guid>https://manualbashing.github.io/posts/a-new-preferred-way-to-call-listkeys-in-bicep/</guid><description>&lt;p>After upgrading to &lt;code>Bicep CLI version 0.15.31 (3ba6e06a8d)&lt;/code> I got a linter warning in one of my bicep files:&lt;/p>
+&lt;p>&lt;img src="static/secrets-gpg-animation.gif" alt="An animation showing how a encrypted file is decrypted with a passphrase">&lt;/p></description></item><item><title>A new preferred way to call listKeys() in bicep</title><link>https://manualbashing.github.io/posts/a-new-preferred-way-to-call-listkeys-in-bicep/</link><pubDate>Fri, 10 Mar 2023 11:45:00 +0100</pubDate><guid>https://manualbashing.github.io/posts/a-new-preferred-way-to-call-listkeys-in-bicep/</guid><description>&lt;p>After upgrading to &lt;code>Bicep CLI version 0.15.31 (3ba6e06a8d)&lt;/code> I got a linter warning in one of my bicep files:&lt;/p>
 &lt;blockquote>
 &lt;p>Use a resource reference instead of invoking function &amp;ldquo;listKeys&amp;rdquo;. This simplifies the syntax and allows Bicep to better understand your deployment dependency graph.bicep core &lt;a href="https://aka.ms/bicep/linter/use-resource-symbol-reference">https://aka.ms/bicep/linter/use-resource-symbol-reference&lt;/a>&lt;/p>
 &lt;/blockquote>

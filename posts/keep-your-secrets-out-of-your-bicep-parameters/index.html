@@ -29,49 +29,49 @@ param location string = resourceGroup().location param tenantId string = tenant(
 </span></span><span style=display:flex><span>    <span>value:</span> <span>keyvaultSecretCatfunValue</span>
 </span></span><span style=display:flex><span>  }
 </span></span><span style=display:flex><span><span>}</span>
-</span></span></code></pre></div><p>But how to we deploy this to Azure without entering the secret&rsquo;s value every time we call <code>az deployment</code>?</p><h2 id=loading-individual-secrets-from-external-files>Loading individual secrets from external files</h2><p>One trick that worked well for me so far, was to use an external text file, that would be excluded from version control.</p><p>For this to work would create a file <code>Catfun.secret</code> that contains the API secret and make sure, that it is excluded from version control via <code>.gitignore</code>.</p><p>This secret would then be loaded by the bicep template as the default value for the <code>keyvaultSecretCatfunValue</code> parameter:</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span><span>@secure()</span>
-</span></span><span style=display:flex><span><span>#disable-next-line</span> <span>secure-parameter-default</span>
-</span></span><span style=display:flex><span><span>param</span> <span>keyvaultSecretCatfunValue</span> <span>string</span> <span>=</span> <span>loadTextContent(&#39;Catfun.secret&#39;)</span>
-</span></span></code></pre></div><p>(We have to add <code>#disable-next-line secure-parameter-default</code>) to ignore the warning, that secure parameters should not use default values. Our scenario is a reasonable exception to this rule.)</p><p>![[vscode-secrets-file.png]]</p><h2 id=loading-several-secrets-from-the-same-file>Loading several secrets from the same file</h2><p>If you need to deploy several secrets in a secure way it is not necessary to create a secret file for each. Instead you can save your secrets in a json file, that can be parsed by bicep.</p><p>The content of my <code>MoreSecrets.json</code> file looks like this:</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span></code></pre></div><p>But how to we deploy this to Azure without entering the secret&rsquo;s value every time we call <code>az deployment</code>?</p><h2 id=loading-individual-secrets-from-external-files>Loading individual secrets from external files</h2><p>One trick that worked well for me so far, was to use an external text file, that would be excluded from version control.</p><p>For this to work would create a file <code>Catfun.secret</code> that contains the API secret and make sure, that it is excluded from version control via <code>.gitignore</code>.</p><p>This secret would then be loaded by the bicep template as the default value for the <code>keyvaultSecretCatfunValue</code> parameter:</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#a2f>@secure</span>()
+</span></span><span style=display:flex><span><span style=color:#080;font-style:italic>#disable-next-line secure-parameter-default</span>
+</span></span><span style=display:flex><span>param keyvaultSecretCatfunValue string <span style=color:#666>=</span> loadTextContent(<span style=color:#b44>&#39;Catfun.secret&#39;</span>)
+</span></span></code></pre></div><p>(We have to add <code>#disable-next-line secure-parameter-default</code>) to ignore the warning, that secure parameters should not use default values. Our scenario is a reasonable exception to this rule.)</p><p><img src=static/vscode-secrets-file.png alt="Screenshot of vscode showing a gitignore file and the code from the code listing above"></p><h2 id=loading-several-secrets-from-the-same-file>Loading several secrets from the same file</h2><p>If you need to deploy several secrets in a secure way it is not necessary to create a secret file for each. Instead you can save your secrets in a json file, that can be parsed by bicep.</p><p>The content of my <code>MoreSecrets.json</code> file looks like this:</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
 </span></span><span style=display:flex><span>    <span style=color:green;font-weight:700>&#34;Catfun&#34;</span>: <span style=color:#b44>&#34;MySuperSecretAPIKey!&#34;</span>,
 </span></span><span style=display:flex><span>    <span style=color:green;font-weight:700>&#34;Fishfun&#34;</span>: <span style=color:#b44>&#34;TheSameButBetter##!&#34;</span>
 </span></span><span style=display:flex><span>}
-</span></span></code></pre></div><p>The file can then be parsed using the <code>loadJsonContent()</code> function in bicep:</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span><span>param</span> <span>location</span> <span>string</span> <span>=</span> <span>resourceGroup().location</span>
-</span></span><span style=display:flex><span><span>param</span> <span>tenantId</span> <span>string</span> <span>=</span> <span>tenant().tenantId</span>
-</span></span><span style=display:flex><span><span>@secure()</span>
-</span></span><span style=display:flex><span><span>#disable-next-line</span> <span>secure-parameter-default</span>
-</span></span><span style=display:flex><span><span>param</span> <span>secrets</span> <span>object</span> <span>=</span> <span>loadJsonContent(&#39;MoreFun.secret&#39;)</span>
+</span></span></code></pre></div><p>The file can then be parsed using the <code>loadJsonContent()</code> function in bicep:</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>param location string <span style=color:#666>=</span> resourceGroup()<span style=color:#666>.</span>location
+</span></span><span style=display:flex><span>param tenantId string <span style=color:#666>=</span> tenant()<span style=color:#666>.</span>tenantId
+</span></span><span style=display:flex><span><span style=color:#a2f>@secure</span>()
+</span></span><span style=display:flex><span><span style=color:#080;font-style:italic>#disable-next-line secure-parameter-default</span>
+</span></span><span style=display:flex><span>param secrets <span style=color:#a2f>object</span> <span style=color:#666>=</span> loadJsonContent(<span style=color:#b44>&#39;MoreFun.secret&#39;</span>)
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span>var</span> <span>name</span> <span>=</span> <span>&#39;kv-$</span>{<span>uniqueString(resourceGroup().id)</span>}<span>&#39;</span>
+</span></span><span style=display:flex><span>var name <span style=color:#666>=</span> <span style=color:#b44>&#39;kv-${uniqueString(resourceGroup().id)}&#39;</span>
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span>resource</span> <span>keyVault</span> <span>&#39;Microsoft.KeyVault/vaults@</span><span style=color:#666>2019-09-01</span><span>&#39;</span> <span>=</span> {
-</span></span><span style=display:flex><span>  <span>name:</span> <span>name</span>
-</span></span><span style=display:flex><span>  <span>location:</span> <span>location</span>
-</span></span><span style=display:flex><span>  <span>properties:</span> <span>{</span>
-</span></span><span style=display:flex><span>    <span>tenantId:</span> <span>tenantId</span>
-</span></span><span style=display:flex><span>    <span>sku:</span> <span>{</span>
-</span></span><span style=display:flex><span>      <span>name:</span> <span>&#39;standard&#39;</span>
-</span></span><span style=display:flex><span>      <span>family:</span> <span>&#39;A&#39;</span>
+</span></span><span style=display:flex><span>resource keyVault <span style=color:#b44>&#39;Microsoft.KeyVault/vaults@2019-09-01&#39;</span> <span style=color:#666>=</span> {
+</span></span><span style=display:flex><span>  name: name
+</span></span><span style=display:flex><span>  location: location
+</span></span><span style=display:flex><span>  properties: {
+</span></span><span style=display:flex><span>    tenantId: tenantId
+</span></span><span style=display:flex><span>    sku: {
+</span></span><span style=display:flex><span>      name: <span style=color:#b44>&#39;standard&#39;</span>
+</span></span><span style=display:flex><span>      family: <span style=color:#b44>&#39;A&#39;</span>
 </span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>    <span>accessPolicies:</span> []
-</span></span><span style=display:flex><span>  <span>}</span>
-</span></span><span style=display:flex><span><span>}</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span>resource</span> <span>keyvaultSecretCatfun</span> <span>&#39;Microsoft.KeyVault/vaults/secrets@</span><span style=color:#666>2019-09-01</span><span>&#39;</span> <span>=</span> {
-</span></span><span style=display:flex><span>  <span>parent:</span> <span>keyVault</span>
-</span></span><span style=display:flex><span>  <span>name:</span> <span>&#39;Catfun&#39;</span>
-</span></span><span style=display:flex><span>  <span>properties:</span> <span>{</span>
-</span></span><span style=display:flex><span>    <span>value:</span> <span>secrets.Catfun</span>
+</span></span><span style=display:flex><span>    accessPolicies: []
 </span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span><span>}</span>
+</span></span><span style=display:flex><span>}
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span>resource</span> <span>keyvaultSecretFishfun</span> <span>&#39;Microsoft.KeyVault/vaults/secrets@</span><span style=color:#666>2019-09-01</span><span>&#39;</span> <span>=</span> {
-</span></span><span style=display:flex><span>  <span>parent:</span> <span>keyVault</span>
-</span></span><span style=display:flex><span>  <span>name:</span> <span>&#39;Fishfun&#39;</span>
-</span></span><span style=display:flex><span>  <span>properties:</span> <span>{</span>
-</span></span><span style=display:flex><span>    <span>value:</span> <span>secrets.Fishfun</span>
+</span></span><span style=display:flex><span>resource keyvaultSecretCatfun <span style=color:#b44>&#39;Microsoft.KeyVault/vaults/secrets@2019-09-01&#39;</span> <span style=color:#666>=</span> {
+</span></span><span style=display:flex><span>  parent: keyVault
+</span></span><span style=display:flex><span>  name: <span style=color:#b44>&#39;Catfun&#39;</span>
+</span></span><span style=display:flex><span>  properties: {
+</span></span><span style=display:flex><span>    value: secrets<span style=color:#666>.</span>Catfun
 </span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span><span>}</span>
-</span></span></code></pre></div><h2 id=protect-your-local-secret-files>Protect your local secret files</h2><p>So far we have managed to keep our secrets out of version control, but they are still laying around in plain text files, which is not what we want for any type of secret.</p><p>One way I like to do this is by encrypting the secrets using the <a href="https://marketplace.visualstudio.com/items?itemName=ugosan.vscode-openpgp">OpenPGP extension</a> in vscode (<code>ugosan.vscode-openpgp</code>).</p><p>This allows me to protect the files that contain the secrets using a private key and passphrase.</p><p>![[secrets-gpg-animation.gif]]</p></div><div class="row middle-xs"><div class=col-xs-12><div class=post-tags><a href=/tags/bicep/>bicep</a></div><div class=post-tags><a href=/tags/azure-infrastructureascode/>Azure - InfrastructureAsCode</a></div></div></div><div class=row><div class=col-xs-12></div></div><div class=related-content><h3>Related Posts</h3><ul><li><a href=/posts/a-new-preferred-way-to-call-listkeys-in-bicep/>A new preferred way to call listKeys() in bicep</a></li><li><a href=/posts/logicapp-loganalytics-mi/>Query Azure Log Analytics from Logic App using Managed Identity</a></li></ul></div><div style=height:50px></div><div class=post-comments><div id=disqus_thread></div><script>window.addEventListener("load",()=>{(function(){var e=document,t=e.createElement("script");t.src="https://manualbashing.disqus.com/embed.js",t.setAttribute("data-timestamp",+new Date),(e.head||e.body).appendChild(t)})()})</script><noscript>Please enable JavaScript to view the
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>resource keyvaultSecretFishfun <span style=color:#b44>&#39;Microsoft.KeyVault/vaults/secrets@2019-09-01&#39;</span> <span style=color:#666>=</span> {
+</span></span><span style=display:flex><span>  parent: keyVault
+</span></span><span style=display:flex><span>  name: <span style=color:#b44>&#39;Fishfun&#39;</span>
+</span></span><span style=display:flex><span>  properties: {
+</span></span><span style=display:flex><span>    value: secrets<span style=color:#666>.</span>Fishfun
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=protect-your-local-secret-files>Protect your local secret files</h2><p>So far we have managed to keep our secrets out of version control, but they are still laying around in plain text files, which is not what we want for any type of secret.</p><p>One way I like to do this is by encrypting the secrets using the <a href="https://marketplace.visualstudio.com/items?itemName=ugosan.vscode-openpgp">OpenPGP extension</a> in vscode (<code>ugosan.vscode-openpgp</code>).</p><p>This allows me to protect the files that contain the secrets using a private key and passphrase.</p><p><img src=static/secrets-gpg-animation.gif alt="An animation showing how a encrypted file is decrypted with a passphrase"></p></div><div class="row middle-xs"><div class=col-xs-12><div class=post-tags><a href=/tags/bicep/>bicep</a></div><div class=post-tags><a href=/tags/azure-infrastructureascode/>Azure - InfrastructureAsCode</a></div></div></div><div class=row><div class=col-xs-12></div></div><div class=related-content><h3>Related Posts</h3><ul><li><a href=/posts/a-new-preferred-way-to-call-listkeys-in-bicep/>A new preferred way to call listKeys() in bicep</a></li><li><a href=/posts/logicapp-loganalytics-mi/>Query Azure Log Analytics from Logic App using Managed Identity</a></li></ul></div><div style=height:50px></div><div class=post-comments><div id=disqus_thread></div><script>window.addEventListener("load",()=>{(function(){var e=document,t=e.createElement("script");t.src="https://manualbashing.disqus.com/embed.js",t.setAttribute("data-timestamp",+new Date),(e.head||e.body).appendChild(t)})()})</script><noscript>Please enable JavaScript to view the
 <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></div><div class=site-footer><div class=site-footer-item><div class=copyright>👓 Powered by <a href=https://gohugo.io>Hugo</a> | Theme -
 <a href=https://github.com/joway/hugo-theme-yinyang>YinYang</a> | ©2022 <a href=/about>Manuel Batsching</a></div></div></div></div></div></article><script></script></body></html>
