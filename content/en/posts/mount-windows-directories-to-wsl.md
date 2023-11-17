@@ -7,7 +7,7 @@ draft: true
 ## The Scenario
 
 - Symlinks only work from Windows to WSL2 not the other way round
-- Symlinks will not be followed by git #action/🕵🏻 
+- Symlinks will not be followed by git #act/🕵🏻 
 - Hardlinking a directory between WSL2 and Windows is not possible.
 
 ## The solution

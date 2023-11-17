@@ -62,7 +62,7 @@ this updates posts and static files and I can have a look at my new posts with `
 
 This is done with a github actions workflow
 
-#action/🕵🏻  Maybe this can also be done with going to each folder and pulling with the `--directory-fiter`
+#act/🕵🏻  Maybe this can also be done with going to each folder and pulling with the `--directory-fiter`
 
 [How do I clone a subdirectory only of a Git repository? - Stack Overflow](https://stackoverflow.com/questions/600079/how-do-i-clone-a-subdirectory-only-of-a-git-repository)
 
