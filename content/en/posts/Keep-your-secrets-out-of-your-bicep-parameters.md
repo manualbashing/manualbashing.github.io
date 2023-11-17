@@ -57,7 +57,7 @@ param keyvaultSecretCatfunValue string = loadTextContent('Catfun.secret')
 
 (We have to add `#disable-next-line secure-parameter-default`) to ignore the warning, that secure parameters should not use default values. Our scenario is a reasonable exception to this rule.)
 
-![Screenshot of vscode showing a gitignore file and the code from the code listing above](static/vscode-secrets-file.png)
+![Screenshot of vscode showing a gitignore file and the code from the code listing above](/static/vscode-secrets-file.png)
 
 ## Loading several secrets from the same file
 
@@ -121,4 +121,4 @@ One way I like to do this is by encrypting the secrets using the [OpenPGP extens
 
 This allows me to protect the files that contain the secrets using a private key and passphrase.
 
-![An animation showing how a encrypted file is decrypted with a passphrase](static/secrets-gpg-animation.gif)
+![An animation showing how a encrypted file is decrypted with a passphras](/static/secrets-gpg-animation.gif)
