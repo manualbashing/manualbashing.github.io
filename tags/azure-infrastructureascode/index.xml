@@ -35,7 +35,7 @@
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#080;font-style:italic">#disable-next-line secure-parameter-default&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>param keyvaultSecretCatfunValue string &lt;span style="color:#666">=&lt;/span> loadTextContent(&lt;span style="color:#b44">&amp;#39;Catfun.secret&amp;#39;&lt;/span>)
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>(We have to add &lt;code>#disable-next-line secure-parameter-default&lt;/code>) to ignore the warning, that secure parameters should not use default values. Our scenario is a reasonable exception to this rule.)&lt;/p>
-&lt;p>&lt;img src="static/vscode-secrets-file.png" alt="Screenshot of vscode showing a gitignore file and the code from the code listing above">&lt;/p>
+&lt;p>&lt;img src="https://manualbashing.github.io/static/vscode-secrets-file.png" alt="Screenshot of vscode showing a gitignore file and the code from the code listing above">&lt;/p>
 &lt;h2 id="loading-several-secrets-from-the-same-file">Loading several secrets from the same file&lt;/h2>
 &lt;p>If you need to deploy several secrets in a secure way it is not necessary to create a secret file for each. Instead you can save your secrets in a json file, that can be parsed by bicep.&lt;/p>
 &lt;p>The content of my &lt;code>MoreSecrets.json&lt;/code> file looks like this:&lt;/p>
@@ -84,4 +84,4 @@
 &lt;p>So far we have managed to keep our secrets out of version control, but they are still laying around in plain text files, which is not what we want for any type of secret.&lt;/p>
 &lt;p>One way I like to do this is by encrypting the secrets using the &lt;a href="https://marketplace.visualstudio.com/items?itemName=ugosan.vscode-openpgp">OpenPGP extension&lt;/a> in vscode (&lt;code>ugosan.vscode-openpgp&lt;/code>).&lt;/p>
 &lt;p>This allows me to protect the files that contain the secrets using a private key and passphrase.&lt;/p>
-&lt;p>&lt;img src="static/secrets-gpg-animation.gif" alt="An animation showing how a encrypted file is decrypted with a passphrase">&lt;/p></description></item></channel></rss>
+&lt;p>&lt;img src="https://manualbashing.github.io/static/secrets-gpg-animation.gif" alt="An animation showing how a encrypted file is decrypted with a passphras">&lt;/p></description></item></channel></rss>
