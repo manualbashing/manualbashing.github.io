@@ -5,11 +5,11 @@ draft: false
 tags:
   - bicep
   - Azure
-   - InfrastructureAsCode
+  - InfrastructureAsCode
 ---
 Imagine the following scenario: We have to deploy an Azure Key Vault that comes already populated with a secret, let's say, some third party's API access key. Our bicep file (`azuredeploy.bicep`) could look like this:
 
-```json
+```python
 param location string = resourceGroup().location
 param tenantId string = tenant().tenantId
 @secure()
