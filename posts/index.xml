@@ -308,6 +308,9 @@
 &lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="">
 &lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="">&lt;/span>&lt;span style="color:#a2f;font-weight:bold">RUN&lt;/span> dotnet tool install -g Microsoft.dotnet-interactive&lt;span style="">
 &lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title> Query Azure Log Analytics from Logic App using Managed Identity</title><link>https://manualbashing.github.io/posts/logicapp-loganalytics-mi/</link><pubDate>Fri, 01 Apr 2022 17:15:55 +0200</pubDate><guid>https://manualbashing.github.io/posts/logicapp-loganalytics-mi/</guid><description>&lt;p>While &lt;a href="https://docs.microsoft.com/en-us/azure/azure-monitor/logs/log-analytics-workspace-overview">Azure Log Analytics Workspaces&lt;/a> supports access using a &lt;a href="https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview">Managed Identity&lt;/a> (formally known as: Managed Service Identity, MSI), the official &lt;a href="https://docs.microsoft.com/en-us/azure/azure-monitor/logs/logicapp-flow-connector">Logic Apps connector for Azure Log Analytics (Azure Monitor Logs)&lt;/a> does not.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Edit 2023-12-04&lt;/strong>: The Logic App connctor for Azure Log Analytics supports managed identities now. So the following workaround is no longer needed.&lt;/p>
+&lt;/blockquote>
 &lt;p>As a workaround queries to a Log Analytics Workspace can also be send directly to the &lt;a href="https://docs.microsoft.com/en-us/rest/api/loganalytics/">Azure REST API&lt;/a>, as the built-in HTTP connector in Logic Apps supports Managed Identities.&lt;/p>
 &lt;p>&lt;img src="https://manualbashing.github.io/static/logicapp-workspace-msi.png" alt="">&lt;/p>
 &lt;blockquote>
