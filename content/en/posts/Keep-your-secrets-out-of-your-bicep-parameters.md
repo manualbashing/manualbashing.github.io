@@ -113,6 +113,20 @@ resource keyvaultSecretFishfun 'Microsoft.KeyVault/vaults/secrets@2019-09-01' = 
 }
 ```
 
+## Use a loop to deploy the secrets
+
+If you happen to have a lot of secrets that you want to deploy this way, or if you want to make sure that new secrets can be added without touching the deployment code, you can use a loop to iterate over the properties of the `keyvaultSecrets' object.
+
+```json
+resource secret 'Microsoft.KeyVault/vaults/secrets@2019-09-01' = [for secretItem in items(keyvaultSecrets): {
+  parent: keyVault
+  name: secretItem.key
+  properties: {
+    value: secretItem.value
+  }
+}]
+```
+
 ## Protect your local secret files
 
 So far we have managed to keep our secrets out of version control, but they are still laying around in plain text files, which is not what we want for any type of secret.
