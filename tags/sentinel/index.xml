@@ -7,7 +7,7 @@
 &lt;h2 id="export-csv-watchlists-using-the-rest-api">Export csv watchlists using the REST API&lt;/h2>
 &lt;p>There is an API method, that allows us to list the contents of the Sentinel watchlists in JSON format: &lt;a href="https://learn.microsoft.com/en-us/rest/api/securityinsights/preview/watchlist-items/list?tabs=HTTP">Watchlist Items - List - REST API (Azure Sentinel) | Microsoft Learn&lt;/a>.&lt;/p>
 &lt;p>The only thing we need to do is to translate this output into the schema of the CSV files that Sentinel supports. This can be done with the following PowerShell cmdlet.&lt;/p>
-&lt;script type="application/javascript" src="https://gist.github.com/manualbashing/d52f7a74e03a2942628caa45fe3c8f65.js">&lt;/script>
+&lt;script src="https://gist.github.com/manualbashing/d52f7a74e03a2942628caa45fe3c8f65.js">&lt;/script>
 &lt;p>&lt;a href="https://gist.github.com/manualbashing/d52f7a74e03a2942628caa45fe3c8f65">Export-SentinelWatchlist.ps1&lt;/a>&lt;/p>
 &lt;p>To run this cmdlet the following requirements need to be met:&lt;/p>
 &lt;ul>

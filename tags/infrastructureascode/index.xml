@@ -80,6 +80,15 @@
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> value: secrets&lt;span style="color:#666">.&lt;/span>Fishfun
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="use-a-loop-to-deploy-the-secrets">Use a loop to deploy the secrets&lt;/h2>
+&lt;p>If you happen to have a lot of secrets that you want to deploy this way, or if you want to make sure that new secrets can be added without touching the deployment code, you can use a loop to iterate over the properties of the `keyvaultSecrets&amp;rsquo; object.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-json" data-lang="json">&lt;span style="display:flex;">&lt;span>&lt;span style="">resource&lt;/span> &lt;span style="">secret&lt;/span> &lt;span style="">&amp;#39;Microsoft.KeyVault/vaults/secrets@&lt;/span>&lt;span style="color:#666">2019-09-01&lt;/span>&lt;span style="">&amp;#39;&lt;/span> &lt;span style="">=&lt;/span> [&lt;span style="">for&lt;/span> &lt;span style="">secretItem&lt;/span> &lt;span style="">in&lt;/span> &lt;span style="">items(keyvaultSecrets):&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">parent:&lt;/span> &lt;span style="">keyVault&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">name:&lt;/span> &lt;span style="">secretItem.key&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">properties:&lt;/span> &lt;span style="">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="">value:&lt;/span> &lt;span style="">secretItem.value&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="">}&lt;/span>]
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="protect-your-local-secret-files">Protect your local secret files&lt;/h2>
 &lt;p>So far we have managed to keep our secrets out of version control, but they are still laying around in plain text files, which is not what we want for any type of secret.&lt;/p>
 &lt;p>One way I like to do this is by encrypting the secrets using the &lt;a href="https://marketplace.visualstudio.com/items?itemName=ugosan.vscode-openpgp">OpenPGP extension&lt;/a> in vscode (&lt;code>ugosan.vscode-openpgp&lt;/code>).&lt;/p>
