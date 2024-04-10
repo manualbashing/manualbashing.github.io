@@ -1,6 +1,6 @@
 ---
 title: Decode any PowerShell Secure String under Linux
-date: 2024-04-10T20:48:34
+date: 2024-04-09
 draft: false
 tags:
   - PowerShell
