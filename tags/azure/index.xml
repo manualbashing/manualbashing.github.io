@@ -35,7 +35,7 @@
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#080;font-style:italic">#disable-next-line secure-parameter-default&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>param keyvaultSecretCatfunValue string &lt;span style="color:#666">=&lt;/span> loadTextContent(&lt;span style="color:#b44">&amp;#39;Catfun.secret&amp;#39;&lt;/span>)
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>(We have to add &lt;code>#disable-next-line secure-parameter-default&lt;/code>) to ignore the warning, that secure parameters should not use default values. Our scenario is a reasonable exception to this rule.)&lt;/p>
-&lt;p>&lt;img src="https://manualbashing.github.io/static/vscode-secrets-file.png" alt="Screenshot of vscode showing a gitignore file and the code from the code listing above">&lt;/p>
+&lt;p>&lt;img alt="Screenshot of vscode showing a gitignore file and the code from the code listing above" src="https://manualbashing.github.io/static/vscode-secrets-file.png">&lt;/p>
 &lt;h2 id="loading-several-secrets-from-the-same-file">Loading several secrets from the same file&lt;/h2>
 &lt;p>If you need to deploy several secrets in a secure way it is not necessary to create a secret file for each. Instead you can save your secrets in a json file, that can be parsed by bicep.&lt;/p>
 &lt;p>The content of my &lt;code>MoreSecrets.json&lt;/code> file looks like this:&lt;/p>
@@ -93,7 +93,7 @@
 &lt;p>So far we have managed to keep our secrets out of version control, but they are still laying around in plain text files, which is not what we want for any type of secret.&lt;/p>
 &lt;p>One way I like to do this is by encrypting the secrets using the &lt;a href="https://marketplace.visualstudio.com/items?itemName=ugosan.vscode-openpgp">OpenPGP extension&lt;/a> in vscode (&lt;code>ugosan.vscode-openpgp&lt;/code>).&lt;/p>
 &lt;p>This allows me to protect the files that contain the secrets using a private key and passphrase.&lt;/p>
-&lt;p>&lt;img src="https://manualbashing.github.io/static/secrets-gpg-animation.gif" alt="An animation showing how a encrypted file is decrypted with a passphras">&lt;/p></description></item><item><title>Transform your data with XPath in Logic Apps and Power Automate</title><link>https://manualbashing.github.io/posts/transform-your-data-with-xpath-in-logic-apps-and-power-automate/</link><pubDate>Tue, 14 Mar 2023 14:24:01 +0000</pubDate><guid>https://manualbashing.github.io/posts/transform-your-data-with-xpath-in-logic-apps-and-power-automate/</guid><description>&lt;p>Imagine you are writing a Logic App or a Power Automate flow and you want to transfrom the following data structure:&lt;/p>
+&lt;p>&lt;img alt="An animation showing how a encrypted file is decrypted with a passphras" src="https://manualbashing.github.io/static/secrets-gpg-animation.gif">&lt;/p></description></item><item><title>Transform your data with XPath in Logic Apps and Power Automate</title><link>https://manualbashing.github.io/posts/transform-your-data-with-xpath-in-logic-apps-and-power-automate/</link><pubDate>Tue, 14 Mar 2023 14:24:01 +0000</pubDate><guid>https://manualbashing.github.io/posts/transform-your-data-with-xpath-in-logic-apps-and-power-automate/</guid><description>&lt;p>Imagine you are writing a Logic App or a Power Automate flow and you want to transfrom the following data structure:&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-json" data-lang="json">&lt;span style="display:flex;">&lt;span>{
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;#34;books&amp;#34;&lt;/span>: {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;#34;book&amp;#34;&lt;/span>: [
@@ -175,7 +175,7 @@
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;lt;foo&amp;gt;&lt;/span>C&lt;span style="color:#008000;font-weight:bold">&amp;lt;/foo&amp;gt;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">&amp;lt;/bar&amp;gt;&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Accordingly in a Logic App we would do it like this:&lt;/p>
-&lt;p>&lt;img src="https://manualbashing.github.io/static/transform-xml.png" alt="">&lt;/p>
+&lt;p>&lt;img src="https://manualbashing.github.io/static/transform-xml.png">&lt;/p>
 &lt;p>The actual conversion to XML is then done in a compose action with the following expression:&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>xml(outputs(&lt;span style="color:#b44">&amp;#39;Compose_-_provide_root_element_to_books_array_for_xml_transformation&amp;#39;&lt;/span>))
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The output of this last compose action, is what we will be working with, when applying the XPath.&lt;/p>
@@ -186,7 +186,7 @@
 &lt;p>Instead we can use the &lt;code>union()&lt;/code> expression function. A trick, that I have explained earlier on this blog: &lt;a href="https://manualbashing.github.io/posts/get-distinct-values-from-array-in-logic-apps-and-power-automate/">Get distinct values from array in Logic Apps and Power Automate (manualbashing.github.io)&lt;/a>.&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>union(xpath(outputs(&lt;span style="color:#b44">&amp;#39;Compose_-_transform_books_array_to_xml&amp;#39;&lt;/span>), &lt;span style="color:#b44">&amp;#39;//author/text()&amp;#39;&lt;/span>), json(&lt;span style="color:#b44">&amp;#39;[]&amp;#39;&lt;/span>))
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>This will result in a list of authors. in which each author appears only once.&lt;/p>
-&lt;p>&lt;img src="https://manualbashing.github.io/static/distinct-values.png" alt="distinct values">&lt;/p>
+&lt;p>&lt;img alt="distinct values" src="https://manualbashing.github.io/static/distinct-values.png">&lt;/p>
 &lt;h2 id="get-an-array-of-book-titles-by-author">Get an array of book titles by author&lt;/h2>
 &lt;p>Now that we have list of all authors, a single for each loop will be enough to transform the data in the way, that we want.&lt;/p>
 &lt;p>First we interate over the list of authors to prepare an XPath query that will return the titles of all books of the current author:&lt;/p>
@@ -195,9 +195,9 @@
 &lt;p>To execute the XPath query we use another compose step and add the following expression:&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>xpath(outputs(&lt;span style="color:#b44">&amp;#39;Compose_-_transform_books_array_to_xml&amp;#39;&lt;/span>), outputs(&lt;span style="color:#b44">&amp;#39;Compose_-_XPath_expression&amp;#39;&lt;/span>))
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The result we can then arrange into a new object and add this to an array variable.&lt;/p>
-&lt;p>&lt;img src="https://manualbashing.github.io/static/books-by-author.png" alt="Books by author">&lt;/p>
+&lt;p>&lt;img alt="Books by author" src="https://manualbashing.github.io/static/books-by-author.png">&lt;/p>
 &lt;p>The result of our efforts looks like this:&lt;/p>
-&lt;p>&lt;img src="https://manualbashing.github.io/static/transformation-result.png" alt="transformation result">&lt;/p>
+&lt;p>&lt;img alt="transformation result" src="https://manualbashing.github.io/static/transformation-result.png">&lt;/p>
 &lt;blockquote>
 &lt;p>⌨️ &lt;strong>Example&lt;/strong>&lt;/p>
 &lt;p>To see this all in action, you can deploy a minimal example that I have added to my bicep-snippets repository: &lt;a href="https://github.com/manualbashing/bicep-snippets/tree/mother/logicapp-xpath">bicep-snippets/logicapp-msi-workspace at mother · manualbashing/bicep-snippets (github.com)&lt;/a>&lt;/p>
@@ -212,7 +212,7 @@
 &lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-json" data-lang="json">&lt;span style="display:flex;">&lt;span>&lt;span style="">logAnalyticsWorkspace.listKeys().primarySharedKey&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The linter warning disappeared and my deployment continued to work just fine.&lt;/p>
 &lt;p>This syntax is indeed easier to read. I had no idea, that it was possible to use methods on symbolic references.&lt;/p></description></item><item><title>How to export csv watchlists from Azure Sentinel</title><link>https://manualbashing.github.io/posts/how-to-export-csv-watchlists-from-azure-sentinel/</link><pubDate>Thu, 09 Mar 2023 15:30:37 +0200</pubDate><guid>https://manualbashing.github.io/posts/how-to-export-csv-watchlists-from-azure-sentinel/</guid><description>&lt;p>Azure Sentinel is Microsoft&amp;rsquo;s &lt;em>Security Information and Event Management&lt;/em> (SIEM) tool, that helps to identify security threats and to respond quickly when they occur. One could say that it is an organization&amp;rsquo;s enhanced ears and eyes, like.. you know:&lt;/p>
-&lt;p>&lt;a href="https://en.wikipedia.org/wiki/The_Sentinel_(TV_series)">&lt;img src="https://manualbashing.github.io/static/the-sentinel.png" alt="The Sentinel">&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://en.wikipedia.org/wiki/The_Sentinel_(TV_series)">&lt;img alt="The Sentinel" src="https://manualbashing.github.io/static/the-sentinel.png">&lt;/a>&lt;/p>
 &lt;p>Sentinel supports so called watchlists. Watchlists are csv files, that add custom information to the assets that you want to monitor closely.&lt;/p>
 &lt;p>Creating and uploading watchlists is a piece of cake and can be done in the Azure Portal: &lt;a href="https://learn.microsoft.com/en-us/azure/sentinel/watchlists-create">Create watchlists - Microsoft Sentinel | Microsoft Learn&lt;/a>.&lt;/p>
 &lt;p>But what if you need to download an existing watchlist? This appears to be unreasonably difficult. At the time of this writing there is no download button in the Azure Portal. And the &lt;a href="https://learn.microsoft.com/en-us/cli/azure/service-page/microsoft%20sentinel?view=azure-cli-latest">Azure CLI extention for Sentinel&lt;/a> doesn&amp;rsquo;t offer this option either.&lt;/p>
@@ -236,7 +236,7 @@
 &lt;p>&lt;strong>Edit 2023-12-04&lt;/strong>: The Logic App connctor for Azure Log Analytics supports managed identities now. So the following workaround is no longer needed.&lt;/p>
 &lt;/blockquote>
 &lt;p>As a workaround queries to a Log Analytics Workspace can also be send directly to the &lt;a href="https://docs.microsoft.com/en-us/rest/api/loganalytics/">Azure REST API&lt;/a>, as the built-in HTTP connector in Logic Apps supports Managed Identities.&lt;/p>
-&lt;p>&lt;img src="https://manualbashing.github.io/static/logicapp-workspace-msi.png" alt="">&lt;/p>
+&lt;p>&lt;img src="https://manualbashing.github.io/static/logicapp-workspace-msi.png">&lt;/p>
 &lt;blockquote>
 &lt;p>⌨️ &lt;strong>Example&lt;/strong>&lt;/p>
 &lt;p>I have added a minimal example to my bicep-snippets repository: &lt;a href="https://github.com/manualbashing/bicep-snippets/tree/mother/logicapp-msi-workspace">bicep-snippets/logicapp-msi-workspace at mother · manualbashing/bicep-snippets (github.com)&lt;/a>&lt;/p>

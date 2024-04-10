@@ -8,7 +8,7 @@
 &lt;/blockquote>
 &lt;p>Starting with REST API version, &lt;code>2020-06-01-preview&lt;/code> , Microsoft introduced the soft-delete feature to API Management service (APIM) (See: &lt;a href="https://docs.microsoft.com/en-us/azure/api-management/soft-delete">Azure API Management soft-delete (preview) | Microsoft Docs&lt;/a>)&lt;/p>
 &lt;p>Deleting an APIM using the REST API version &lt;code>2020-06-01-preview&lt;/code> or higher will not obliterate the service but put it into the soft-delete state. It can be restored or purged (deleted forever) from this state. If nothing is done, the APIM will purge itself after a specific time.&lt;/p>
-&lt;p>&lt;img src="https://manualbashing.github.io/static/apim-meme.jpg" alt="">&lt;/p>
+&lt;p>&lt;img src="https://manualbashing.github.io/static/apim-meme.jpg">&lt;/p>
 &lt;p>No need to mention that this is a valuable feature, but it has downsides too, that have caused people headaches: &lt;a href="https://github.com/Azure/azure-cli/issues/16138">APIM gets stuck in soft-delete state · Issue #16138 · Azure/azure-cli (github.com)&lt;/a>&lt;/p>
 &lt;p>As far as I see it, the problem lies in a combination of three factors:&lt;/p>
 &lt;ol>

@@ -21,7 +21,7 @@
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>In order to solve this type of problem, I have seen people to resort to JavaScript, Azure Functions or complicated contraptions within Logic Apps. The alternative is to use a surprisingly little known expression function called &lt;code>chunk()&lt;/code>: &lt;a href="https://learn.microsoft.com/en-us/azure/logic-apps/workflow-definition-language-functions-reference#chunk">chunk() - Reference guide for expression functions - Azure Logic Apps&lt;/a>.&lt;/p>
 &lt;p>The function takes two elements. The first is the array, that needs to be sliced, and the second is the slice length.&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>chunk(&lt;span style="color:#b44">&amp;#39;[1,2,3,4,5,6,7,8,9,10]&amp;#39;&lt;/span>, &lt;span style="color:#666">3&lt;/span>)
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://manualbashing.github.io/static/logicapps-chunk.png" alt="logic apps chunk">&lt;/p>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img alt="logic apps chunk" src="https://manualbashing.github.io/static/logicapps-chunk.png">&lt;/p>
 &lt;p>See here for the full workflow definition of this example:&lt;/p>
 &lt;script src="https://gist.github.com/manualbashing/e37e4e0670d23838eb4a636bec1f01aa.js">&lt;/script>
 &lt;p>&lt;a href="https://gist.github.com/manualbashing/e37e4e0670d23838eb4a636bec1f01aa">See Gist on Github&lt;/a>&lt;/p></description></item><item><title>Transform your data with XPath in Logic Apps and Power Automate</title><link>https://manualbashing.github.io/posts/transform-your-data-with-xpath-in-logic-apps-and-power-automate/</link><pubDate>Tue, 14 Mar 2023 14:24:01 +0000</pubDate><guid>https://manualbashing.github.io/posts/transform-your-data-with-xpath-in-logic-apps-and-power-automate/</guid><description>&lt;p>Imagine you are writing a Logic App or a Power Automate flow and you want to transfrom the following data structure:&lt;/p>
@@ -106,7 +106,7 @@
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;lt;foo&amp;gt;&lt;/span>C&lt;span style="color:#008000;font-weight:bold">&amp;lt;/foo&amp;gt;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">&amp;lt;/bar&amp;gt;&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Accordingly in a Logic App we would do it like this:&lt;/p>
-&lt;p>&lt;img src="https://manualbashing.github.io/static/transform-xml.png" alt="">&lt;/p>
+&lt;p>&lt;img src="https://manualbashing.github.io/static/transform-xml.png">&lt;/p>
 &lt;p>The actual conversion to XML is then done in a compose action with the following expression:&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>xml(outputs(&lt;span style="color:#b44">&amp;#39;Compose_-_provide_root_element_to_books_array_for_xml_transformation&amp;#39;&lt;/span>))
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The output of this last compose action, is what we will be working with, when applying the XPath.&lt;/p>
@@ -117,7 +117,7 @@
 &lt;p>Instead we can use the &lt;code>union()&lt;/code> expression function. A trick, that I have explained earlier on this blog: &lt;a href="https://manualbashing.github.io/posts/get-distinct-values-from-array-in-logic-apps-and-power-automate/">Get distinct values from array in Logic Apps and Power Automate (manualbashing.github.io)&lt;/a>.&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>union(xpath(outputs(&lt;span style="color:#b44">&amp;#39;Compose_-_transform_books_array_to_xml&amp;#39;&lt;/span>), &lt;span style="color:#b44">&amp;#39;//author/text()&amp;#39;&lt;/span>), json(&lt;span style="color:#b44">&amp;#39;[]&amp;#39;&lt;/span>))
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>This will result in a list of authors. in which each author appears only once.&lt;/p>
-&lt;p>&lt;img src="https://manualbashing.github.io/static/distinct-values.png" alt="distinct values">&lt;/p>
+&lt;p>&lt;img alt="distinct values" src="https://manualbashing.github.io/static/distinct-values.png">&lt;/p>
 &lt;h2 id="get-an-array-of-book-titles-by-author">Get an array of book titles by author&lt;/h2>
 &lt;p>Now that we have list of all authors, a single for each loop will be enough to transform the data in the way, that we want.&lt;/p>
 &lt;p>First we interate over the list of authors to prepare an XPath query that will return the titles of all books of the current author:&lt;/p>
@@ -126,15 +126,15 @@
 &lt;p>To execute the XPath query we use another compose step and add the following expression:&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>xpath(outputs(&lt;span style="color:#b44">&amp;#39;Compose_-_transform_books_array_to_xml&amp;#39;&lt;/span>), outputs(&lt;span style="color:#b44">&amp;#39;Compose_-_XPath_expression&amp;#39;&lt;/span>))
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The result we can then arrange into a new object and add this to an array variable.&lt;/p>
-&lt;p>&lt;img src="https://manualbashing.github.io/static/books-by-author.png" alt="Books by author">&lt;/p>
+&lt;p>&lt;img alt="Books by author" src="https://manualbashing.github.io/static/books-by-author.png">&lt;/p>
 &lt;p>The result of our efforts looks like this:&lt;/p>
-&lt;p>&lt;img src="https://manualbashing.github.io/static/transformation-result.png" alt="transformation result">&lt;/p>
+&lt;p>&lt;img alt="transformation result" src="https://manualbashing.github.io/static/transformation-result.png">&lt;/p>
 &lt;blockquote>
 &lt;p>⌨️ &lt;strong>Example&lt;/strong>&lt;/p>
 &lt;p>To see this all in action, you can deploy a minimal example that I have added to my bicep-snippets repository: &lt;a href="https://github.com/manualbashing/bicep-snippets/tree/mother/logicapp-xpath">bicep-snippets/logicapp-msi-workspace at mother · manualbashing/bicep-snippets (github.com)&lt;/a>&lt;/p>
 &lt;/blockquote></description></item><item><title>Get distinct values from array in Logic Apps and Power Automate</title><link>https://manualbashing.github.io/posts/get-distinct-values-from-array-in-logic-apps-and-power-automate/</link><pubDate>Mon, 13 Mar 2023 12:31:45 +0000</pubDate><guid>https://manualbashing.github.io/posts/get-distinct-values-from-array-in-logic-apps-and-power-automate/</guid><description>&lt;p>It is a fairly common task to get only distinct values from an array. That means only those values, that are not duplicates.&lt;/p>
 &lt;p>Imagine you have the following array:&lt;/p>
-&lt;p>&lt;img src="https://manualbashing.github.io/static/distinct-values-myArray.png" alt="distinct-values-myArray">&lt;/p>
+&lt;p>&lt;img alt="distinct-values-myArray" src="https://manualbashing.github.io/static/distinct-values-myArray.png">&lt;/p>
 &lt;p>If you want only distinct values from this array, that means you want &lt;code>[ &amp;quot;A&amp;quot;, &amp;quot;B&amp;quot;, &amp;quot;C&amp;quot;, &amp;quot;D&amp;quot;]&lt;/code> without the duplicate &lt;code>&amp;quot;A&amp;quot;&lt;/code>.&lt;/p>
 &lt;p>As you can guess from the previous screenshot, this can be done with the &lt;code>union()&lt;/code> function, that is available in both Logic Apps and Power Automate. The actual purpose of this function is to create a union between two arrays or objects:&lt;/p>
 &lt;blockquote>
@@ -149,7 +149,7 @@
 &lt;p>&lt;strong>Edit 2023-12-04&lt;/strong>: The Logic App connctor for Azure Log Analytics supports managed identities now. So the following workaround is no longer needed.&lt;/p>
 &lt;/blockquote>
 &lt;p>As a workaround queries to a Log Analytics Workspace can also be send directly to the &lt;a href="https://docs.microsoft.com/en-us/rest/api/loganalytics/">Azure REST API&lt;/a>, as the built-in HTTP connector in Logic Apps supports Managed Identities.&lt;/p>
-&lt;p>&lt;img src="https://manualbashing.github.io/static/logicapp-workspace-msi.png" alt="">&lt;/p>
+&lt;p>&lt;img src="https://manualbashing.github.io/static/logicapp-workspace-msi.png">&lt;/p>
 &lt;blockquote>
 &lt;p>⌨️ &lt;strong>Example&lt;/strong>&lt;/p>
 &lt;p>I have added a minimal example to my bicep-snippets repository: &lt;a href="https://github.com/manualbashing/bicep-snippets/tree/mother/logicapp-msi-workspace">bicep-snippets/logicapp-msi-workspace at mother · manualbashing/bicep-snippets (github.com)&lt;/a>&lt;/p>
