@@ -1,5 +1,5 @@
 ---
-title: Decode any PowerShell Secure String under Linux
+title: Decode any PowerShell Secure String on Linux
 date: 2024-04-09
 draft: false
 tags:
@@ -27,6 +27,6 @@ $decodedPassword = $utf8.GetString($byteArray)
 Write-Host "Password: $password | Decoded Password: $decodedPassword"
 ```
 
-Under Windows this will not lead to a useful value for `$decodedPassword`, as Windows systems encrypt the *secure string* based on the profile of the current User and Host. Under Linux the value for `$password` and `$decodedPassword` will be identical.
+On Windows this will not lead to a useful value for `$decodedPassword`, as Windows systems encrypt the *secure string* based on the profile of the current User and Host. On Linux the value for `$password` and `$decodedPassword` will be identical.
 
-So better find another way to store your automation secrets under Linux or even better: avoid them alltogether by using certificates or managed identities if possible.
+So better find another way to store your automation secrets on Linux or even better: avoid them alltogether by using certificates or managed identities if possible.
