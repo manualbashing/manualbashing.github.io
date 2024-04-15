@@ -6,7 +6,7 @@ tags:
   - PowerShell
 ---
 
-This is not a big deal, as *secure strings* are not encrypted under Unix systems. The password will instead be obfuscated as hexadecimal representation of the string's bytes.
+This is not a big deal, as *secure strings* are not encrypted on Unix systems. The password will instead be obfuscated as hexadecimal representation of the string's bytes.
 
 According to [a user on reddit](https://www.reddit.com/r/PowerShell/comments/dtggfn/comment/f6wmpfu/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button), converting a string to a *secure string* it is basically doing this:
 
@@ -14,7 +14,7 @@ According to [a user on reddit](https://www.reddit.com/r/PowerShell/comments/dtg
 [BitConverter]::ToString([Text.Encoding]::Unicode.GetBytes('foo')).Replace('-','')
 ```
 
-This can be demonstrated in the following way:
+That this is not at all something that can be called secure, can be demonstrated in the following way:
 
 ```powershell
 $password = "foo"
