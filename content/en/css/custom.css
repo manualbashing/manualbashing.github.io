@@ -1,7 +1,10 @@
 body {
-  font-family: Merriweather, serif;
-  font-size: 1rem;
+  font-family: Georgia, serif;
 }
+
+.markdown-body {
+    font-size: 1rem;
+  }
 
 .post-title,
 .posts-title,
@@ -10,16 +13,16 @@ h2,
 h3,
 h4,
 h5 {
-  font-family: Bree serif, sans-serif;
+  font-family: Bree serif, serif;
 }
 
 .header-title {
   background-image: url("/static/terminal.png");
-  background-size: 2.7em;
+  background-size: 1.5em;
   background-repeat: no-repeat;
 }
 .header-title a {
-  padding-left: 3em;
+  padding-left: 1.7em;
 }
 
 .post-content p img {
