@@ -1,7 +1,7 @@
 ---
 title: Open Azure DevOps Wikis in Obsidian
-date: 2024-07-25T16:46:28
-draft: true
+date: 2024-07-24
+draft: false
 tags:
   - Obsidian
   - AzureDevOps
