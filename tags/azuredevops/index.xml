@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>AzureDevOps on ManualBashing</title><link>https://manualbashing.github.io/tags/azuredevops/</link><description>Recent content in AzureDevOps on ManualBashing</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 24 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://manualbashing.github.io/tags/azuredevops/index.xml" rel="self" type="application/rss+xml"/><item><title>Open Azure DevOps Wikis in Obsidian</title><link>https://manualbashing.github.io/posts/open-ado-wikis-in-obsidian/</link><pubDate>Wed, 24 Jul 2024 00:00:00 +0000</pubDate><guid>https://manualbashing.github.io/posts/open-ado-wikis-in-obsidian/</guid><description>&lt;ul>
+&lt;li>Make sure you have &lt;a href="https://git-scm.com/downloads">Git 2.25.0&lt;/a> or greater.&lt;/li>
+&lt;li>Clone the repository that holds the wiki pages
+&lt;ul>
+&lt;li>If the wiki was created as a project wiki (not by publishing code as a wiki) and it is not listed in the repository view, you can still clone it by using its &amp;ldquo;secret path&amp;rdquo;: &lt;code>git clone https://dev.azure.com/&amp;lt;organization&amp;gt;/&amp;lt;project&amp;gt;/_git/&amp;lt;name of wiki&amp;gt;.wiki&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Make sure the stage is clean and all changes have been commited&lt;/li>
+&lt;li>The following instructions keep all &amp;ldquo;customizations&amp;rdquo; local to each committer, so the wiki does not require the use of Obsidian.&lt;/li>
+&lt;li>This means that the following steps need to be performed by everyone who wants to use Obsidian to work with the wiki files.&lt;/li>
+&lt;/ul>
+&lt;h2 id="make-sure-to-use-a-global-attachments-folder">Make sure to use a global attachments folder&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>Azure DevOps allows to use a global folder for attachments and pictures, called &lt;code>/.attachments&lt;/code>. This allows to link to attachments without using absolute or relative paths:&lt;/p>
+&lt;ul>
+&lt;li>For example &lt;code>![Img1](.attachments/img1.png)&lt;/code> will be a valid path to &lt;code>img1.png&lt;/code>, regardless where the page that contains that file is located within the repository.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>The same thing is possible in Obsidian with the limitation that the global attachment folder &lt;strong>cannot&lt;/strong> start with a dot. At the same time, in Azure DevOps, it has to start with a dot, which creates a problem that we have to work around.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>We can work around this problem by creating a separate attachment folder for Obsidian and making sure that all images are included from there when checked out locally, and from the appropriate &lt;code>.attachments&lt;/code> folder when the wiki is opened in Azure DevOps.&lt;/p>
+&lt;ul>
+&lt;li>Unfortunately symlinks or directory junctions are also not supported by obsidian&amp;hellip;&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>This requires to change the linking of attachments and pictures in the markdown files when checking them out locally, which can be done by using &lt;a href="https://medium.com/@dimst23/a-hidden-gem-of-git-clean-smudge-filter-6c27bee20081">git clean/smudge filters&lt;/a>.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>using a global attachments folder in Obsidian that is called &lt;code>_attachments&lt;/code> and a git smudge filter that makes sure, Azure DevOps only sees its &lt;code>.attachment&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Change to the root of your local reposity and delete the working directory:&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>rm .git/index
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git clean -df
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>If your repo already has an &lt;code>.gitignore&lt;/code> file check it out. If it doesn&amp;rsquo;t, create one and make sure it ignores the folders &lt;code>_attachments&lt;/code>, &lt;code>.obsidian&lt;/code> and all of their contents.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>git checkout HEAD .gitignore &lt;span style="color:#080;font-style:italic"># If repo has a .gitignore&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a2f">echo&lt;/span> &lt;span style="color:#b44">&amp;#34;_attachments/&amp;#34;&lt;/span> &amp;gt;&amp;gt; .gitignore
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a2f">echo&lt;/span> &lt;span style="color:#b44">&amp;#34;.obsidian/&amp;#34;&lt;/span> &amp;gt;&amp;gt; .gitignore
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>If your repo already has an &lt;code>.gitattributes&lt;/code> file check it out. If it doesn&amp;rsquo;t, create one and add a rule that applies a text filter called &amp;ldquo;attachmentsFolder&amp;rdquo; to all markdown files.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>git checkout HEAD .gitattributes &lt;span style="color:#080;font-style:italic"># If repo has a .gitignore&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a2f">echo&lt;/span> &lt;span style="color:#b44">&amp;#34;*.md text filter=attachmentsFolder&amp;#34;&lt;/span> &amp;gt;&amp;gt; .gitattributes
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>Now add the respective filter to your repo local git configuration:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-powershell" data-lang="powershell">&lt;span style="display:flex;">&lt;span>git config &lt;span style="color:#a2f;font-weight:bold">filter&lt;/span>.attachmentsFolder.smudge &lt;span style="color:#b44">&amp;#34;sed -e &amp;#39;s/\.attachments/_attachments/g&amp;#39;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git config &lt;span style="color:#a2f;font-weight:bold">filter&lt;/span>.attachmentsFolder.clean &lt;span style="color:#b44">&amp;#34;sed -e &amp;#39;s/_attachments/.attachments/g&amp;#39;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>Next we create git hooks that trigger a sync of the content of the two attachment folders.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>For the sync we use &lt;a href="https://learn.microsoft.com/de-de/windows-server/administration/windows-commands/robocopy">robocopy&lt;/a> which is a built in tool in Windows 11.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Add the following to &lt;code>.git/hooks/pre-commit&lt;/code> (create if it does not exist) to copy new attachments from &lt;code>_attachments&lt;/code> (Obsidian) to &lt;code>.attachments&lt;/code> (Repo) when creating a new commit.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#080">#!/bin/sh
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#080">&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a2f">echo&lt;/span> &lt;span style="color:#b44">&amp;#34;[pre-commit hook] Updating repo with local attachments&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pwsh -noprofile -c &lt;span style="color:#b44">&amp;#39;iex &amp;#34;robocopy _attachments .attachments /mir /njh /njs /ndl&amp;#34;&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git add .attachments
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>The following code copies attachments from &lt;code>.attachments&lt;/code> (Repo) to &lt;code>_attachments&lt;/code> (Obsidian):&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#080">#!/bin/sh
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#080">&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a2f">echo&lt;/span> &lt;span style="color:#b44">&amp;#34;[post-checkout hook] Updating local attachments with updates from repo&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pwsh -noprofile -c &lt;span style="color:#b44">&amp;#39;iex &amp;#34;robocopy .attachments _attachments /mir /njh /njs /ndl&amp;#34;&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>In order to work reliably it needs to be added to the following files (create if they do not exist):&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>.git/hooks/post-checkout&lt;/code> (applied after git pull and change of branches)&lt;/li>
+&lt;li>&lt;code>.git/hooks/post-rewrite&lt;/code> (applied after rebase)&lt;/li>
+&lt;li>&lt;code>.git/hooks/post-merge&lt;/code> (applied after merge)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>Check out the working directory to apply the smudge filter to all Markdown files (may take some time):&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>git checkout HEAD .
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="open-the-repository-in-obsidian-as-vault">Open the repository in Obsidian as vault&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>Open vault from folder&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Disable unnecessart plugins&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Change attachment folder path to &lt;code>_attachments&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Disable wiki links&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Set the format for new links to &amp;ldquo;relative&amp;rdquo;&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="recommended-plugins">Recommended plugins&lt;/h2>
+&lt;h3 id="plugin-folder-note">Plugin Folder Note&lt;/h3>
+&lt;ul>
+&lt;li>Creates a note that automatically serves as the index of a folder.&lt;/li>
+&lt;li>This is supported by Azure DevOps.&lt;/li>
+&lt;li>Folder Node Plugin Settings:
+&lt;ul>
+&lt;li>Set the &amp;ldquo;Note File Method&amp;rdquo; to &amp;ldquo;Folder Name Outside&amp;rdquo;&lt;/li>
+&lt;li>If the code &lt;code>[[_ TOSP _]]&lt;/code> is added to the &amp;ldquo;Initial Content&amp;rdquo; of such a folder file it will be shown as a dynamic table of contents of the respective folder in Azure DevOps (&lt;a href="https://learn.microsoft.com/en-us/azure/devops/project/wiki/markdown-guidance?view=azure-devops#add-a-subpages-table">TOSP: Table of Sub Pages&lt;/a>).&lt;/li>
+&lt;li>Set the &amp;ldquo;Hide Folder Node&amp;rdquo; and &amp;ldquo;Auto Rename&amp;rdquo; option.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img alt="Screenshot Folder Note.png" src="https://manualbashing.github.io/static/ScreenshotFolderNote.png">&lt;/p>
+&lt;h3 id="other-plugins">Other plugins&lt;/h3>
+&lt;ul>
+&lt;li>Quickadd&lt;/li>
+&lt;li>Obisidian git (untested)&lt;/li>
+&lt;/ul></description></item></channel></rss>
